@@ -1,4 +1,4 @@
-
+#include <stdlib.h>
 #include "shm_sem.h"
 
 int semaphore_p(int sem_id);
@@ -11,18 +11,26 @@ int main()
 	struct sh_dat *sh_ptr;
 	char buffer[TEXT_SZ];
 	int shmid, semid;
+        FILE *gaurav= fopen("gaurav.txt", "a");
+        if(gaurav==NULL)
+        {
+            printf("\ngaurv.txt file not able to open\n");
+            return 0;
+        }
+        else
+        {
 
 	shmid = shmget((key_t)1234, sizeof(struct sh_dat), 0666 | IPC_CREAT);
 	if(shmid == -1)
 	{
-		fprintf(stderr, "shmget failed\n");
+		fprintf(gaurav, "shmget failed\n");
 		exit(EXIT_FAILURE);
 	}
 	
 	semid = semget((key_t)1235, 1, 0666 | IPC_CREAT);
 	if(semid == -1)
 	{
-		fprintf(stderr, "semget failed\n");
+		fprintf(gaurav, "semget failed\n");
 		shmctl(shmid, IPC_RMID, NULL);
 		exit(EXIT_FAILURE);
 	}
@@ -30,7 +38,7 @@ int main()
 	shm = shmat(shmid, (void *)0, 0);
 	if(shm == (void *)-1)
 	{
-		fprintf(stderr, "shmat failed\n");
+		fprintf(gaurav, "shmat failed\n");
 		exit(EXIT_FAILURE);
 	}
 	sh_ptr = (struct sh_dat *)shm;
@@ -39,6 +47,8 @@ int main()
 		/* Waiting while server reads the data written by the client */
 		if(semaphore_p(semid))	/* Check if server has written the data */
 		{
+                    fprintf(gaurav,"checking file\n");
+
 			printf("Enter some text: ");
 			fgets(buffer, TEXT_SZ, stdin);
 		
@@ -52,11 +62,14 @@ int main()
 		}
 	}
 	if(shmdt(sh_ptr) == -1)
-	{
-		fprintf(stderr, "shmdt failed\n");
+        {
+		fprintf(gaurav, "shmdt failed\n");
 		exit(EXIT_FAILURE);
 	}
+        fclose(gaurav);
 	exit(EXIT_SUCCESS);
+        }
+
 }
 
 int semaphore_p(int sem_id)
