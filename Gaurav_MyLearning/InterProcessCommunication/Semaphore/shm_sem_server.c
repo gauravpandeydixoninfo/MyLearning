@@ -30,7 +30,7 @@ int main()
 	{
 		fprintf(stderr, "semctl(SETVAL) failed\n");
 		shmctl(shmid, IPC_RMID, NULL);
-		shmctl(semid, IPC_RMID, NULL);
+		semctl(semid, IPC_RMID, NULL);
 		exit(EXIT_FAILURE);
 	}
 	
@@ -67,7 +67,7 @@ int main()
 		fprintf(stderr, "shmctl(IPC_RMID) failed\n");
 		exit(EXIT_FAILURE);
 	}
-	if(shmctl(semid, IPC_RMID, 0) == -1)
+	if(semctl(semid, IPC_RMID, 0) == -1)
 	{
 		fprintf(stderr, "semctl(IPC_RMID) failed\n");
 		exit(EXIT_FAILURE);
