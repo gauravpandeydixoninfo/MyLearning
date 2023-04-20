@@ -1,10 +1,12 @@
 #include "shm_sem.h"
-
+#include <stdlib.h>
+#include <stdio.h>
 int semaphore_p(int sem_id);
 int semaphore_v(int sem_id);
 
 int main()
 {
+
 	int start = 1;
 	void *shm = NULL;
 	struct sh_dat *sh_ptr;
@@ -12,15 +14,24 @@ int main()
 
 	/* Creating the semaphore and shared memory */
 	shmid = shmget((key_t)1234, sizeof(struct sh_dat), 0666 | IPC_CREAT);
+        FILE *gaurav2=fopen("gaurav.txt","a");
+        if(gaurav2==NULL)
+        {
+            printf("\nfile pointer opened\n");
+            return 0;
+        }
+        else
+        {
+
 	if(shmid == -1)
 	{
-		fprintf(stderr, "shmget failed\n");
+		fprintf(gaurav2, "shmget failed\n");
 		exit(EXIT_FAILURE);
 	}
 	semid = semget((key_t)1235, 1, 0666 | IPC_CREAT);
 	if(semid == -1)
 	{
-		fprintf(stderr, "semget failed\n");
+		fprintf(gaurav2, "semget failed\n");
 		shmctl(shmid, IPC_RMID, NULL);
 		exit(EXIT_FAILURE);
 	}
@@ -28,9 +39,9 @@ int main()
 	/* Initially making the semaphore available */
 	if(semctl(semid, 0, SETVAL, 1) == -1)
 	{
-		fprintf(stderr, "semctl(SETVAL) failed\n");
+		fprintf(gaurav2, "semctl(SETVAL) failed\n");
 		shmctl(shmid, IPC_RMID, NULL);
-		semctl(semid, IPC_RMID, NULL);
+		semctl(semid, IPC_RMID, 0);
 		exit(EXIT_FAILURE);
 	}
 	
@@ -38,7 +49,7 @@ int main()
 	shm = shmat(shmid, (void *)0, 0);
 	if(shm == (void *)-1)
 	{
-		fprintf(stderr, "shmat failed\n");
+		fprintf(gaurav2, "shmat failed\n");
 		exit(EXIT_FAILURE);
 	}
 	sh_ptr = (struct sh_dat *)shm;
@@ -59,20 +70,23 @@ int main()
 	/* Detaching the shared memory */
 	if(shmdt(sh_ptr) == -1)
 	{
-		fprintf(stderr, "shmdt failed\n");
+		fprintf(gaurav2, "shmdt failed\n");
 		exit(EXIT_FAILURE);
 	}
 	if(shmctl(shmid, IPC_RMID, 0) == -1)
 	{
-		fprintf(stderr, "shmctl(IPC_RMID) failed\n");
+		fprintf(gaurav2, "shmctl(IPC_RMID) failed\n");
 		exit(EXIT_FAILURE);
 	}
 	if(semctl(semid, IPC_RMID, 0) == -1)
 	{
-		fprintf(stderr, "semctl(IPC_RMID) failed\n");
+		fprintf(gaurav2, "semctl(IPC_RMID) failed\n");
 		exit(EXIT_FAILURE);
 	}
 	exit(EXIT_SUCCESS);
+        return 0;
+     
+        }
 }
 	
 int semaphore_p(int sem_id)
