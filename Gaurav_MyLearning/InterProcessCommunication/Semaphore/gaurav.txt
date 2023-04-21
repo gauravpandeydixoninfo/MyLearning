@@ -3,3 +3,15 @@ checking file
 checking file
 checking file
 checking file
+[Fri Apr 21 06:25:31 2023] [shm_sem_client.c] [main] [63] checking file
+[Fri Apr 21 06:25:34 2023] [shm_sem_client.c] [main] [63] checking file
+[Fri Apr 21 06:25:38 2023] [shm_sem_client.c] [main] [63] checking file
+[Fri Apr 21 06:47:35 2023] [shm_sem_server.c] [main] [75] server read the content
+[Fri Apr 21 06:47:37 2023] [shm_sem_server.c] [main] [75] server read the content
+[Fri Apr 21 06:47:39 2023] [shm_sem_server.c] [main] [75] server read the content
+[Fri Apr 21 06:47:42 2023] [shm_sem_server.c] [main] [75] server read the content
+[Fri Apr 21 06:47:44 2023] [shm_sem_server.c] [main] [75] server read the content
+[Fri Apr 21 06:47:49 2023] [shm_sem_server.c] [main] [75] server read the content
+[Fri Apr 21 06:47:39 2023] [shm_sem_client.c] [main] [63] checking file
+[Fri Apr 21 06:47:43 2023] [shm_sem_client.c] [main] [63] checking file
+[Fri Apr 21 06:47:45 2023] [shm_sem_client.c] [main] [63] checking file

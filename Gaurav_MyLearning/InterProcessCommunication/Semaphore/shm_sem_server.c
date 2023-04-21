@@ -1,8 +1,21 @@
 #include "shm_sem.h"
 #include <stdlib.h>
 #include <stdio.h>
+#include <time.h>
+
 int semaphore_p(int sem_id);
 int semaphore_v(int sem_id);
+FILE *fptr2 = NULL;
+
+char * timestamp()
+{
+    time_t ltime; /* calendar time */
+    ltime = time(NULL); /* get current cal time */
+
+    char * curr_local_time = asctime(localtime(&ltime));
+    curr_local_time[strlen(curr_local_time) - 1] = '\0'; // removed \n
+    return curr_local_time;
+}
 
 int main()
 {
@@ -14,10 +27,10 @@ int main()
 
 	/* Creating the semaphore and shared memory */
 	shmid = shmget((key_t)1234, sizeof(struct sh_dat), 0666 | IPC_CREAT);
-        FILE *gaurav2=fopen("gaurav.txt","a");
-        if(gaurav2==NULL)
+        fptr2 = fopen("gaurav.txt","a+");
+        if(fptr2==NULL)
         {
-            printf("\nfile pointer opened\n");
+            fprintf(stderr,"\nfile pointer not opened\n");
             return 0;
         }
         else
@@ -25,13 +38,13 @@ int main()
 
 	if(shmid == -1)
 	{
-		fprintf(gaurav2, "shmget failed\n");
+		fprintf(fptr2, "[%s] [%s] [%s] [%d] shmget failed\n", timestamp(), __FILE__, __func__, __LINE__);
 		exit(EXIT_FAILURE);
 	}
 	semid = semget((key_t)1235, 1, 0666 | IPC_CREAT);
 	if(semid == -1)
 	{
-		fprintf(gaurav2, "semget failed\n");
+		fprintf(fptr2, "[%s] [%s] [%s] [%d] semget failed\n",timestamp(), __FILE__, __func__, __LINE__);
 		shmctl(shmid, IPC_RMID, NULL);
 		exit(EXIT_FAILURE);
 	}
@@ -39,7 +52,7 @@ int main()
 	/* Initially making the semaphore available */
 	if(semctl(semid, 0, SETVAL, 1) == -1)
 	{
-		fprintf(gaurav2, "semctl(SETVAL) failed\n");
+		fprintf(fptr2, "[%s] [%s] [%s] [%d] semctl(SETVAL) failed\n", timestamp(), __FILE__, __func__, __LINE__);
 		shmctl(shmid, IPC_RMID, NULL);
 		semctl(semid, IPC_RMID, 0);
 		exit(EXIT_FAILURE);
@@ -49,7 +62,7 @@ int main()
 	shm = shmat(shmid, (void *)0, 0);
 	if(shm == (void *)-1)
 	{
-		fprintf(gaurav2, "shmat failed\n");
+		fprintf(fptr2, "[%s] [%s] [%s] [%d] shmat failed\n", timestamp(), __FILE__, __func__, __LINE__);
 		exit(EXIT_FAILURE);
 	}
 	sh_ptr = (struct sh_dat *)shm;
@@ -59,6 +72,7 @@ int main()
 		if(semaphore_p(semid))	/* Check if client has written the data */
 		{
 			printf("You wrote: %s", sh_ptr->text);
+            fprintf(fptr2, "[%s] [%s] [%s] [%d] server read the content\n", timestamp(), __FILE__, __func__, __LINE__);
 			semaphore_v(semid);	/* Giving it to client after reading the data */
 			if(strncmp(sh_ptr->text, "end",3) == 0)
 			{
@@ -70,17 +84,17 @@ int main()
 	/* Detaching the shared memory */
 	if(shmdt(sh_ptr) == -1)
 	{
-		fprintf(gaurav2, "shmdt failed\n");
+		fprintf(fptr2, "[%s] [%s] [%s] [%d] shmdt failed\n", timestamp(), __FILE__, __func__, __LINE__);
 		exit(EXIT_FAILURE);
 	}
 	if(shmctl(shmid, IPC_RMID, 0) == -1)
 	{
-		fprintf(gaurav2, "shmctl(IPC_RMID) failed\n");
+		fprintf(fptr2, "[%s] [%s] [%s] [%d] shmctl(IPC_RMID) failed\n", timestamp(), __FILE__, __func__, __LINE__);
 		exit(EXIT_FAILURE);
 	}
 	if(semctl(semid, IPC_RMID, 0) == -1)
 	{
-		fprintf(gaurav2, "semctl(IPC_RMID) failed\n");
+		fprintf(fptr2, "[%s] [%s] [%s] [%d] semctl(IPC_RMID) failed\n", timestamp(), __FILE__, __func__, __LINE__);
 		exit(EXIT_FAILURE);
 	}
 	exit(EXIT_SUCCESS);
@@ -97,7 +111,7 @@ int semaphore_p(int sem_id)
 	sem_b.sem_flg = SEM_UNDO;
 	if(semop(sem_id, &sem_b, 1) == -1)
 	{
-		fprintf(stderr, "semaphore_p failed \n");
+		fprintf(fptr2, "[%s] [%s] [%s] [%d] semaphore_p failed \n", timestamp(), __FILE__, __func__, __LINE__);
 		return 0;
 	}
 	return 1;
@@ -111,7 +125,7 @@ int semaphore_v(int sem_id)
 	sem_b.sem_flg = SEM_UNDO;
 	if(semop(sem_id, &sem_b, 1) == -1)
 	{
-		fprintf(stderr, "semaphore_v failed \n");
+		fprintf(fptr2, "[%s] [%s] [%s] [%d] semaphore_v failed \n", timestamp(), __FILE__, __func__, __LINE__);
 		return 0;
 	}
 	return 1;
