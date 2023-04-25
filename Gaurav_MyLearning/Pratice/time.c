@@ -11,24 +11,10 @@ char * timestamp(){
     return time;
 }
 
-int main(int argc, char* argv[]) {
-
-
+int main(int argc, char* argv[]) 
+{
     print_log("Hello gaurav this side");
     print_log("%s%d","mokumus",1996);
 
     return 0;
 }
-
-/*void timestamp1()
-{
-    time_t ltime; //calendar time
-    ltime = time(NULL); // get current cal time
-    printf("%s", asctime(localtime(&ltime)));
-}
-int main()
-{   
-    timestamp1();
-    return 0;
-}*/
-
