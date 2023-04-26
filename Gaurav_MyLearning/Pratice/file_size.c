@@ -4,7 +4,7 @@
 #include <string.h>
 
 long int findSize(char file_name[])
-{    
+{   // printf("Gaurav Pandey"); 
     char filename[20]; 
 	// opening the file in read mode
     // char temp;
