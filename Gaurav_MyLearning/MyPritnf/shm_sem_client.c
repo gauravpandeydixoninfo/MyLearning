@@ -32,6 +32,16 @@ int main()
     sleep(1);
 	print_log("Semaphore created");
 
+	/* Initially making the semaphore available */
+	/* Initially making the semaphore available */
+	if(semctl(semid, 0, SETVAL, 1) == -1)
+	{
+		print_log("semctl(SETVAL) failed");
+		shmctl(shmid, IPC_RMID, 0);
+		semctl(semid, IPC_RMID, 0);
+		exit(EXIT_FAILURE);
+	}
+
 	shm = shmat(shmid, (void *)0, 0);
 	if(shm == (void *)-1)
 	{
