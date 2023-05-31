@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 app.use(express.json());
 
-const cources = [
+var cources = [
     {id : 1,  name : 'physics'},
     {id : 2,  name : 'chemistry'},
     {id : 3,  name : 'math'}
@@ -38,56 +38,15 @@ app.patch('/api/cources/:id', (req, res) => {
  })
 
 app.delete('/api/cources/:id', (req,res) => {
-    const {id} = req.params;
-    console.log("id entered" + id);
-    res.send('delete working fine');
-    const cindex = cources.findIndex((element, pindex) => {
-        console.log("element ==> "+ element);
-        console.log("element.id ==> "+ element.id + "  element.name ==> "+ element.name);
-        console.log("pindex ==> "+ pindex);
-        console.log("id which you are trying to match= " + id);
-        if (element.id === id) {
-            return true
-        }
-    })
-    console.log("course cindex ==>"+ id);
-    delete cources[id];
-    console.log("after delete cources ==> "+ cources);
-})
-    /*
-    const deleted = cources.find(cources ==> cources.id ===id)
-    if (deleted)
-    {
-        cources= cources.find(cources ==> cources.id !== id) 
-        res.send('delete part implemented');
-        console.log(" delete part implemented");
-    
+    let cource = cources.find(c => c.id === parseInt(req.params.id))
+    if (!cource){
+        res.status(404).send("Invalid Id")
     }
-    else
-    {
-        res.send('id not matched in database');
-        console.log("id not found");
-    }
- })
-*/
-
-/*app.delete('/api/cources/:id', (req,res) => {
-    console.log("Delete is not yet implemented");
-    console.log("param " + req.params);
-    console.log("path "+req.path);
-    console.log('query ' + req.query);
-    console.log('baseUrl ' + req.baseUrl);
-    console.log('headers ' + req.headers);
-    console.log('hostname ' + req.quehostnamery);
-    console.log('httpVersion ' + req.httpVersion);
-    console.log('httpVersionMajor ' + req.httpVersionMajor);
-    console.log('httpVersionMinor ' + req.httpVersionMinor);
-    console.log('ip ' + req.ip);
-    console.log('ips ' + req.ips);
-    console.log('originalUrlreq ' + req.originalUrlreq);
-    res.send('Delete is not yet implemented');
+    console.log("course cindex ==>"+ req.params.id);
+    cources.splice(req.params.id - 1, 1);
+    console.log("Delete is implemented cources = " + cources);
+    res.send(cources);
 })
-*/
 
 app.get('/api/cources/gaurav', (req,res) => {
         console.log("message send by gaurav");
