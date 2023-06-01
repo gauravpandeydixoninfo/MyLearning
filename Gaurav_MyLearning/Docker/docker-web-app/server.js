@@ -24,11 +24,11 @@ app.put('/api/cources', (req,res) => {
  })
 
 app.patch('/api/cources/:id', (req, res) => {
-    let cource = cources.find(c => c.id === parseInt(req.params.id))
-    if (!cource){
+    let index = cources.findIndex(c => c.id === parseInt(req.params.id))
+    if (!index){
         res.status(404).send("Invalid Id")
     }
-    console.log("course cindex ==>"+ req.params.id);
+    console.log("course cindex ==>"+ index);
     console.log("req.body.id = " + req.body.id);
     console.log("req.body.name = " + req.body.name);
     cources[req.params.id - 1].id = parseInt(req.body.id);
@@ -38,12 +38,12 @@ app.patch('/api/cources/:id', (req, res) => {
  })
 
 app.delete('/api/cources/:id', (req,res) => {
-    let cource = cources.find(c => c.id === parseInt(req.params.id))
-    if (!cource){
+    let index = cources.findIndex(c => c.id === parseInt(req.params.id))
+    if (!index){
         res.status(404).send("Invalid Id")
     }
-    console.log("course cindex ==>"+ req.params.id);
-    cources.splice(req.params.id - 1, 1);
+    console.log("course cindex ==>"+ index);
+    cources.splice(index, 1);
     console.log("Delete is implemented cources = " + cources);
     res.send(cources);
 })
@@ -86,20 +86,54 @@ app.get('/api/cources/:id/search/?', (req,res) => {
 app.post('/api/cources/', (req, res) => {
     console.log("indside post API");
     console.log(req.body);
+    console.log("req.body.length=", req.body.length)
+  //  console.log("req.body[0].id=", req.body[0].id)
+    let cource_length=cources.length;
+    let req_length= req.body.length;
+    if(req.body.length)
+    {
+    for(let i= 0; i< req_length; i++)
+    {
+
     obj = new Object();
-    if ( req.body.id) {
+    if ( req.body[i].id) {
         console.log("id available");
-        obj.id = req.body.id;
+       // console.log("req.body[i].name", req.body[i].name);
+        obj.id = req.body[i].id;
     }
-    if ( req.body.name) {
+    if ( req.body[i].name) {
         console.log("name available");
-        obj.name = req.body.name;
+        obj.name = req.body[i].name;
     }
 
     console.log(obj);
     cources.push(obj);
+    //res.send(cources);
+}
+res.send(cources);
+}
+
+else
+{
+obj1 = new Object();
+    if ( req.body.id) {
+        console.log("id available");
+       // console.log("req.body[i].name", req.body[i].name);
+        obj1.id = req.body.id;
+    }
+    if ( req.body.name) {
+        console.log("name available");
+        obj1.name = req.body.name;
+    }
+
+    console.log(obj1);
+    cources.push(obj1);
     res.send(cources);
-});
+}
+}
+ 
+
+);
 
 
 app.listen(3333, console.log('listening at port 3333 ...'));
