@@ -93,47 +93,47 @@ app.post('/api/cources/', (req, res) => {
     if(req.body.length)
     {
     for(let i= 0; i< req_length; i++)
-    {
+        {
 
-    obj = new Object();
-    if ( req.body[i].id) {
-        console.log("id available");
-       // console.log("req.body[i].name", req.body[i].name);
-        obj.id = req.body[i].id;
-    }
-    if ( req.body[i].name) {
-        console.log("name available");
-        obj.name = req.body[i].name;
-    }
+            obj = new Object();
+            if ( req.body[i].id) 
+            {
+                console.log("id available");
+                // console.log("req.body[i].name", req.body[i].name);
+                obj.id = req.body[i].id;
+            }   
+            if ( req.body[i].name) 
+            {
+                console.log("name available");
+                obj.name = req.body[i].name;
+            }   
 
-    console.log(obj);
-    cources.push(obj);
-    //res.send(cources);
-}
-res.send(cources);
-}
-
-else
-{
-obj1 = new Object();
-    if ( req.body.id) {
-        console.log("id available");
-       // console.log("req.body[i].name", req.body[i].name);
-        obj1.id = req.body.id;
-    }
-    if ( req.body.name) {
-        console.log("name available");
-        obj1.name = req.body.name;
-    }
-
-    console.log(obj1);
-    cources.push(obj1);
+            console.log(obj);
+            cources.push(obj);
+            //res.send(cources);
+        }   
     res.send(cources);
-}
-}
- 
+    }   
 
-);
+    else
+    {
+        obj1 = new Object();
+        if ( req.body.id) 
+        {
+            console.log("id available");
+            // console.log("req.body[i].name", req.body[i].name);
+            obj1.id = req.body.id;
+        }   
+    if ( req.body.name) 
+        {
+            console.log("name available");
+            obj1.name = req.body.name;
+        }
+        console.log(obj1);
+        cources.push(obj1);
+        res.send(cources);
+    }
+});
 
 
 app.listen(3333, console.log('listening at port 3333 ...'));
