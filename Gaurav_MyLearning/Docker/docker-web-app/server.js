@@ -87,12 +87,12 @@ app.post('/api/cources/', (req, res) => {
     console.log("indside post API");
     console.log(req.body);
     console.log("req.body.length=", req.body.length)
-  //  console.log("req.body[0].id=", req.body[0].id)
+    // console.log("req.body[0].id=", req.body[0].id)
     let cource_length=cources.length;
     let req_length= req.body.length;
     if(req.body.length)
     {
-    for(let i= 0; i< req_length; i++)
+        for(let i= 0; i< req_length; i++)
         {
 
             obj = new Object();
@@ -112,19 +112,18 @@ app.post('/api/cources/', (req, res) => {
             cources.push(obj);
             //res.send(cources);
         }   
-    res.send(cources);
+        res.send(cources);
     }   
-
     else
     {
         obj1 = new Object();
-        if ( req.body.id) 
+        if (req.body.id) 
         {
             console.log("id available");
             // console.log("req.body[i].name", req.body[i].name);
             obj1.id = req.body.id;
-        }   
-    if ( req.body.name) 
+        }
+        if (req.body.name) 
         {
             console.log("name available");
             obj1.name = req.body.name;
