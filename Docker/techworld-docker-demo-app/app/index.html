@@ -55,6 +55,35 @@
         const cont = document.getElementById('container');
         cont.style.display = 'block';
     })();
+    /*async function handleDeleteProfileRequest() {
+        const contEdit = document.getElementById('container-edit');
+        const cont = document.getElementById('container');
+
+        const payload = {
+            name: na,
+            email: na,
+            interests: na
+        };
+
+        const response = await fetch('http://192.168.99.8:3000/update-profile', {
+            method: "POST",
+            headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(payload)
+        });
+        const jsonResponse = await response.json();
+
+        document.getElementById('name').textContent = jsonResponse.name;
+        document.getElementById('email').textContent = jsonResponse.email;
+        document.getElementById('interests').textContent = jsonResponse.interests;
+
+        cont.style.display = 'block';
+        contEdit.style.display = 'none';
+    }
+   */
+
 
     async function handleUpdateProfileRequest() {
         const contEdit = document.getElementById('container-edit');
