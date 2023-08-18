@@ -1,5 +1,8 @@
 @import url(//fonts.googleapis.com/css?family=Open+Sans:400,700,600);
-
+<style>
+body {
+  background-image: url("paper.gif");
+}
 *{
   box-sizing:border-box;
 }
@@ -25,11 +28,11 @@ body{
 }
 
 #background-stats-1{
-  background-color: #2196f3;
+  background-color: #ff0000;
 }
 
 #background-stats-2{
-  background-color: #00cbca;
+  background-color: #FFFF00;
 }
 
 #content-container{
@@ -88,12 +91,12 @@ body{
   text-transform: uppercase;
 }
 
-#choice .choice.dogs{
+#choice .choice.Bjp{
   color: #00cbca;
   float: right;
 }
 
-#choice .choice.cats{
+#choice .choice.Cong{
   color: #2196f3;
   float: left;
 }
