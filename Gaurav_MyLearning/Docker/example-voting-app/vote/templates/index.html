@@ -1,5 +1,8 @@
 <!DOCTYPE html>
 <html>
+  body {
+  background-image: "./rahulvsmodi.jpeg";
+  }
   <head>
     <meta charset="utf-8">
     <title>{{option_a}} vs {{option_b}}!</title>
@@ -10,8 +13,8 @@
     <link rel='stylesheet' href="{{ url_for('static',filename='stylesheets/style.css') }}" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
   </head>
-  <body>
-    <div id="content-container">
+  <body> 
+     <div id="content-container">
       <div id="content-container-center">
         <h3>{{option_a}} vs {{option_b}}!</h3>
         <form id="choice" name='form' method="POST" action="/">
