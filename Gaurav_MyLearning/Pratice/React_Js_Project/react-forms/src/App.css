@@ -20,6 +20,13 @@ body {
   border-radius: 5px;
   background: #fff;
 }
+.icon{
+  position:absolute;
+  left: 310px;
+  top: 10%;
+  transform: translateY(-30%);
+  cursor: pointer;
+}
 pre {
   width: 70%;
   color: #fff;
@@ -31,4 +38,8 @@ button {
 }
 p {
   color:red
+}
+p::before {
+  display: inline;
+  content: " ⚠";
 }
