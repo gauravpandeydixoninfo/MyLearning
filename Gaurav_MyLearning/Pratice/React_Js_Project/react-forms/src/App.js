@@ -28,11 +28,7 @@ function App() {
               placeholder="Username"
               {...register("username", { required: "Username is required" })}
             />
-            {/* <span align="right" className="icon"> <i className="dollar icon"></i></span> */}
-            {/* <span className="icon"> <end><i className="dollar icon"></i></end></span> */}
-            {/* <span style = "position:absolute;"> <i className="dollar icon"></i></span> */}
-            {/* <div style = "position:absolute; left:80px; top:20px; background-color:yellow;"></div> */}
-            {/* <i className="star icon"></i> */}
+            
             {errors.username && <p> This field is required</p>}
           </div>
           {/* <p>{errors.username?.message}</p> */}
