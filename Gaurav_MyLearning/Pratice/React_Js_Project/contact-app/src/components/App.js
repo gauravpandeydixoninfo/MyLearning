@@ -7,6 +7,7 @@ import ContactList from "./ContactList";
 
 function App() {
   const LOCAL_STORAGE_KEY = "contacts";
+  console.log(LOCAL_STORAGE_KEY);
   const [contacts, setContacts] = useState(
     JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY)) ?? []
   );
