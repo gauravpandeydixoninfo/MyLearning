@@ -1,13 +1,20 @@
 body {
-  background: rgb(2, 0, 36);
+   /* background : rgb(2, 0, 36); */
   /* <img src="pic_trulli.jpg" alt="Italian Trulli"> */
-  /* background:"url(./hills.jpg)"; */
-  background: radial-gradient(
+    /* background:#b45a05;  */
+   /* background-image: url("https://source.unsplash.com/random"); */
+   /* background-image: url("https://source.unsplash.com/1600x900/?nature,water"); */
+   background-image: url("https://source.unsplash.com/1600x900/?hills");
+
+   /* background-repeat: repeat-x; */
+   /* background-repeat: repeat-y; */
+  /* background: radial-gradient(
     circle,
     rgb(141, 223, 34) 40%,
     rgb(233, 133, 20) 50%,
     rgba(93, 93, 116, 1) 100%
-  );
+  );  */
+  /* background-image: url("https://source.unsplash.com/random"); */
 }
 
 .container {
@@ -25,7 +32,7 @@ body {
   border: 5px solid #45975e;
   padding: 10px;
   border-radius: 1px;
-  background: #4011ec;
+  /* background: #4011ec; */
 }
 pre {
   width: 70%;

@@ -88,7 +88,7 @@ function App() {
     <div className='container'>
       {
         Object.keys(formErrors).length ===0 && isSubmit ?
-        (<div className='ui message success'>Signed is Successfully</div>) :
+        (<div className='ui message success'style={{color:"red", background:"yellow",}} >Signed is Successfully</div>) :
         (
         <div>
            <pre>{JSON.stringify(formValues, undefined, 2)}</pre>
