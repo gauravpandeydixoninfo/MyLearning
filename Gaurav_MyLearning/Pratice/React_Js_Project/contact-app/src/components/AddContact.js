@@ -13,7 +13,9 @@ class AddContact extends React.Component {
         if (this.state.name === "" || this.state.email === "") {
             alert("Enter all field");
         }
+        console.log("state => ", this.state)
         this.props.myAddContactHandler(this.state);
+        this.setState({name:"", email:""});
     }
     
     render() {
