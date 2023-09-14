@@ -29,9 +29,17 @@ function App() {
     e.preventDefault();
     setNames([...names, { id: names.length, name: name }]);
     console.log(names);
-
+    function checkvalue1(e) {
+      console.log(e);
+    };
 
   }
+
+  function new_input_box(e) {
+    console.log("e => ", e);
+  }
+
+
   return (
     <div className='App'>
       <h1> this is {flag ? name : "no name"} </h1>
@@ -49,7 +57,14 @@ function App() {
           type="text"
           name="name"
           placeholder='add names'
-          onChange={(e) => setName(e.target.value)}
+          onChange={e => setName(e.target.value)}
+        >
+        </input>
+        <input
+          type="text"
+          name="name1"
+          placeholder='add names'
+          onChange={new_input_box}
         >
         </input>
         <div>
@@ -63,6 +78,6 @@ function App() {
         ))}
       </ul>
     </div>);
-}
 
+}
 export default App;
