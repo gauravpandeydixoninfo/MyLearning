@@ -2,10 +2,17 @@ import React from "react";
 import ContactCard from "./ContactCard";
 const ContactList= (props) => {
         // console.log(props.mycontacts[0].email);
+        const deleteContactHandler = (id) => {
+            props.getContactId(id);
+
+        }
         const renderContactList= props.mycontacts.map((contact) =>
         {
             return(
-                <ContactCard mycontact={contact}/>
+                <ContactCard 
+                    mycontact={contact}
+                    clickHandler={deleteContactHandler}
+                    key={contact.id}/>
                 // <div className="iteam">
                 //     <div className="content">
                 //         <div className="header">{mycontact.name}</div>

@@ -24,23 +24,31 @@ function App() {
   const [contacts, setContacts] = useState([]);
   const addContactHandler = (c) => {
     console.log("contacts=>", c);
-    setContacts([...contacts, c])
+    setContacts([...contacts, { id: uuid(), c }]);
   };
   useEffect(() => {
     const retriveContacts = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY));
-    if(retriveContacts.length){
+    if (retriveContacts.length) {
       setContacts(retriveContacts);
     }
-  },[]);
+  }, []);  // [] is called once when page is refreshed
   useEffect(() => {
 
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(contacts));
-  }, [contacts]);
+  }, [contacts]); // It will called when "contacts" get updated
+
+  const removeContactHandler = (id) => {
+    const newContactList = contacts.filter((c) => {
+      return c.id !== id;
+    })
+    setContacts(newContactList);
+
+  }
   return (
     <div className="ui container">
       <Header />
       <AddContact myAddContactHandler={addContactHandler} />
-      <ContactList mycontacts={contacts} />
+      <ContactList mycontacts={contacts} getContactId={removeContactHandler} />
     </div>
   );
 }
