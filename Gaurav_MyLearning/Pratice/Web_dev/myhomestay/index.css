@@ -1,0 +1,82 @@
+body {
+    background-image: url("uk_image.jpg") ;
+    background-repeat: no-repeat;
+    background-size: 1453px;
+    height: 855px;
+    
+}
+.left{
+    
+    border-color: 2px solid red;
+    background-color: red;
+    display: inline-block;
+    /* padding: 20px; */
+    /* border-radius: 55px; */
+    font-size: large;
+    height: 55px;
+    /* position: fixed; */
+}
+.mid{
+    border-color:2px solid green;
+    background-color: green;
+    display: inline-block;
+    position: absolute;
+    left: 156px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    width: 74%;
+    height: 45px;
+    position: fixed;
+
+    
+}
+.right{
+    border-color: 2px solid yellow;
+    /* background-color: yellow; */
+    display: inline-block;
+    float: right;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    height:35px;
+    margin:6px;
+    width: 166px;
+    /* position: fixed;
+    right: 3px; */
+    
+}
+img{
+    height:33px;
+    width: 102px;
+}
+.mid ul{
+    text-decoration: none;
+}
+.navbar{
+    display: inline-block;
+}
+.navbar li{
+    display: inline-block;
+    text-decoration: none;
+}
+.navbar li a{
+    color: white;
+    margin: 83px;
+    text-decoration: none;
+}
+.navbar li a:hover{
+    color:blue;
+}
+.right button{
+    height:36px;
+    cursor: pointer;
+    text-decoration: none;
+    background-color: aqua;
+    border-radius: 33px;
+    margin:0px;
+    color: red;
+}
+button  hover{
+    cursor: pointer;
+}
+form{
+    /* background-color: aqua; */
+    margin:200px 500px ;
+}
