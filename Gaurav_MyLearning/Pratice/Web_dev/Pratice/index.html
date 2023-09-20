@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visibilty display and z index</title>
+    <style>
+        .check{
+            border:2px solid red;
+            width:444px;
+            height: 44px;
+            display: flexbox;
+        }
+        #id1{
+            background-color: aqua;
+        }
+        #id2{
+            background-color: blue;
+            /* display: flexbox; */
+            position: relative;
+            /* visibility: hidden; */
+            z-index: 5;
+        }
+        #id3{
+            background-color: brown;
+            position: relative;
+            top: -15px;
+        }
+        #id4{
+            background-color: pink;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <div class="check" id="id1"></div>
+        <div class="check" id="id2"></div>
+        <div class="check" id="id3"></div>
+        <div class="check" id="id4"></div>
+    </div>
+    
+</body>
+</html>

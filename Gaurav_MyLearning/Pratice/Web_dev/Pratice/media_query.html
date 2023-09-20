@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>media_query</title>
+    <style>
+        .check{
+            background-color: red;
+            color: black;
+            border: 2px solid aqua;
+            font-size: 24px;
+            text-align: center;
+            display: none;
+        }
+        @media only screen and (max-width:300px) {
+            #iteam1{
+                display: block;
+            }
+            }
+            @media (max-width:500px) and (min-width:300px){
+                #ideam2{
+                    display:block;
+                }
+            }
+            @media (max-width:500px) and (min-width:300px){
+                #iteam2{
+                    display:block;
+                }
+            }
+            @media (max-width:700px) and (min-width:500px){
+                #iteam3{
+                    display:block;
+                }
+            }
+            @media(min-width:700px){
+                #iteam4{
+                    display: block;
+                }
+            }
+            
+        
+    </style>
+</head>
+
+<body>
+    <div class="check" id="iteam1">Ma ek phone hu</div>
+    <div class="check" id="iteam2">Ma ek iphone hoon</div>
+    <div class="check" id="iteam3">Ma ek tablet hoo</div>
+    <div class="check" id="iteam4">Ma ek laptop hoo</div>
+    
+</body>
+</html>
