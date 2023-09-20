@@ -32,29 +32,24 @@ function App() {
 
   function validate(values) {
     const errors = {};
-    // console.log("validate ==> ", values);
     const regex_email = /^\S+@\S+\.\S+$/i;
 
     // Username Validation
     if (values.username === "") { // Emptyness
       errors.username = "Username is required";
-      // console.log(errors.username);
     }
 
     // Email Validation
     if (values.email === "") { // Emptyness
       errors.email = "Email is required";
-      // console.log(errors.email);
     }
     else if (!regex_email.test(values.email)) {
       errors.email = "Email format is not valid";
     }
 
-
     // Password Validation
     if (values.password === "") { // Emptyness
       errors.password = "Password is required";
-      // console.log(errors.password);
     }
     else if (values.password.length < 4 || values.password.length > 10) {
       errors.password = "Password length should be between 4 and 10";
@@ -66,27 +61,27 @@ function App() {
   return (
     <div className='container'>
       {
-        Object.keys(formErrors).length === 0 && isSubmit ? 
-        (<div 
-          className='ui message success'
-          style = {
-            {
-              color: "green",
-              background: "yellow"
-            }
-          }>Signed in Successfully</div>) : 
-        (<div>
-          <div
+        Object.keys(formErrors).length === 0 && isSubmit ?
+          (<div
             className='ui message success'
-            style = {
+            style={
               {
-                color: "red",
+                color: "green",
                 background: "yellow"
               }
-            }>Signed in Failed</div>
-          <pre>{JSON.stringify(formValues, undefined, 2)}</pre>
-        </div>
-        )
+            }>Signed in Successfully</div>) :
+          (<div>
+            <div
+              className='ui message success'
+              style={
+                {
+                  color: "red",
+                  background: "yellow"
+                }
+              }>Signed in Failed</div>
+            <pre>{JSON.stringify(formValues, undefined, 2)}</pre>
+          </div>
+          )
       }
       <form onSubmit={handleSubmit}>
         <h1>Login Form</h1>

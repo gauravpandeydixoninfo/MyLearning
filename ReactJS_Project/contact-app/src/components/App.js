@@ -5,40 +5,54 @@ import Header from "./Header";
 import AddContact from "./AddContact";
 import ContactList from "./ContactList";
 
+// const contactlist = [
+//   {
+//     id: "1",
+//     name: "Prashant",
+//     email: "pp@gmail.cpm"
+//   },
+//   {
+//     id: 2,
+//     name: "Patel",
+//     email: "ps@dixon.com"
+//   }
+// ]
+
 function App() {
-  const LOCAL_STORAGE_KEY = "contacts";
-  const [contacts, setContacts] = useState(
-    JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY)) ?? []
-  );
-  
-  const addContactHandler = (contact) => {
-    console.log("contact => ", contact);
-    setContacts([...contacts, {id: uuid(), ...contact}]);
-  };
 
-  const removeContactHandler = (id) => {
-    const newContactList = contacts.filter((contact) => {
-      return contact.id !== id;
-    });
-    setContacts(newContactList);
-  };
+  const LOCAL_STORAGE_KEY = "PrashantContacts";
+  const [contacts, setContacts] = useState([]);
 
-  // useEffect(() => {
-  //   const retriveContacts = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY));
-  //   console.log(retriveContacts);
-  //   if(retriveContacts)
-  //     setContacts(retriveContacts);
-  // }, []);
+  const addContactHandler = (c) => {
+    console.log("contacts => ", c);
+    setContacts([...contacts, {id: uuid(), ...c}]);
+  }
+
+  useEffect(() => {
+    const retriveContacts = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY));
+    if (retriveContacts.length) {
+      setContacts(retriveContacts);
+    }
+  }, []); // [] is called once when page is refreshed
 
   useEffect(() => {
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(contacts));
-  }, [contacts]);
+  }, [contacts]); // It will called when "contancts" get updated
+
+  const removeContactHandler = (id) => {
+    console.log("removeContactHandler id => ", id);
+    const newContactList = contacts.filter((c) => {
+      return c.id !== id;
+    })
+    setContacts(newContactList);
+  }
+
 
   return (
     <div className="ui container">
       <Header />
       <AddContact myAddContactHandler={addContactHandler} />
-      <ContactList myContacts={contacts} getContactId={removeContactHandler} />
+      <ContactList mycontacts={contacts} getContactId={removeContactHandler}/>
     </div>
   );
 }
