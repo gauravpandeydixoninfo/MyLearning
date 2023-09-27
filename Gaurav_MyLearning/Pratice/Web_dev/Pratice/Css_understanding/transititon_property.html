@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transform property</title>
+    <style>
+        #box {
+            display: flex;
+            background-color: aqua;
+            width: 255px;
+            height: 255px;
+            /* text-align: center; */
+            justify-content: center;
+            align-items: center;
+            transition-property: background-color;
+            transition-duration: 4s;
+            transition-timing-function: ease-in;
+
+        }
+        #box:hover{
+            background-color: orange;
+        }
+        .container{
+            align-items: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="box">
+            This is My box
+        </div>
+    </div>
+    
+</body>
+</html>

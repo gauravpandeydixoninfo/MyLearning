@@ -1,0 +1,237 @@
+/* including css in all tag */
+*{
+    margin: 0px;
+    padding: 0px;
+}
+/* Css variable */
+:root {
+    --navbar-height: 59px;
+}
+/* navgation bar css including */
+#navbar{
+    display: flex;
+    align-items: center;
+    /* background-color: red; */
+    height:64px;
+    position: relative;
+    /* z-index: 2; */
+}
+ 
+/* navagation bar logo formating */
+#logo{
+    margin: 44px;
+    padding: 1px 1px;
+
+}
+/* logo img css including */
+#logo img{
+    height: 49px;
+    margin: 3px 6px;
+}
+#navbar ul{
+    display:flex;
+    padding: 44px;
+    font-family: 'Skranji', cursive;
+}
+
+#navbar ul li{
+    list-style: none;
+    font-size: 1.3rem;
+}
+#navbar ul li a{
+    display: block;
+    padding: 3px 22px;
+    border-radius:20px;
+    text-decoration: none;
+    color: white;
+    margin: 5px
+}
+
+#navbar ul li a:hover{
+    color:black;
+    background-color: white;
+}
+#navbar::before{
+    content:"";
+    background-color: black;
+    position: absolute;
+    height:100%;
+    width:100%;
+    z-index: -1;
+    opacity: 0.4;
+    top: 0px;
+    left: 0px;
+}
+
+
+/* Home section */
+#Home{
+    display: flex;
+    flex-direction: column;
+    padding: 6px 100px;
+    justify-content: center;
+    align-items: center;
+    height: 275px;
+    border: 2px solid red;
+    /* background-color: red; */
+    /* background: url("img/kausauni.jpg" ) no-repeat center center/cover; */
+    /* background-size: 4444px 155px; */
+}
+
+/* #Home::before{
+    content: "";
+    position: absolute;
+    background: url("img/destaination1.jpg");
+    z-index: 5;
+} */
+#Home::before{
+    content:"";
+    background: url("img/kausauni.jpg") no-repeat center center/cover;
+    position: absolute;
+    height:45%;
+    width:100%;
+    z-index: -1;
+    top: 64px;
+    opacity: .8;
+}
+
+#Home h1{
+    color: black;
+    text-align: center;
+    font-family: 'Raleway', sans-serif;
+}
+#Home p{
+    color: white;
+    text-align: center;
+    font-family: 'Raleway', sans-serif;
+}
+/* Services sections */
+.services-container{
+    background-color: rgba(110, 47, 192, 0.5);
+    border: 2px solid yellow;
+}
+#services{
+    margin: 8px;
+    display:flex;
+    /* background-color: rgba(24, 2, 2, 0.5); */
+    height: 450px;
+    /* top: 5500px; */
+
+}
+
+
+#services .box{
+    border:2px solid brown;
+    width:33%;
+    margin: 2px 3px;
+    background-color: rgb(221, 246, 252);
+}
+
+#services .box img{
+    width: 100%;
+    height: 180px;
+    display:block;
+    margin:auto;
+}
+
+/* Clients Section */
+#client-section{
+    height: 300px;
+    position: relative;
+    border: 2px solid brown;
+}
+
+#client-section::before{
+    content: "";
+    position: absolute;
+    background-image: url("img/rudhdhari_waterfall.jpg");
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    opacity: 0.7;
+
+}
+
+#clients{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#clients img{
+    height:100px;
+}
+.client-iteam{
+    padding: 34px;
+}
+
+/* Contact Section */
+#contact{
+    position:relative;
+}
+#contact::before{
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    opacity: 0.7;
+    background: url("img/contact.jpg") no-repeat center center/cover;
+
+}
+#contact-box{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 34px;
+
+}
+
+#contact-box input, #contact-box textarea{
+    width: 100%;
+    padding: 0.5rem;
+    border-radius: 9px;
+    font-size: 1.1rem;
+}
+
+#contact-box form{
+    width: 40%;
+}
+#contact-box label{
+    font-size:1.3rem;
+
+}
+
+/* footer */
+
+
+
+
+
+
+
+
+
+/* Utility class */
+.h-primary{
+    font-size: 3.8rem;
+    padding: 12px;
+}
+.h-secondary{
+    font-size: 2.8rem;
+    padding: 12px;
+}
+.btn{
+    border:2px solid white;
+    padding: 6px 20px;
+    background-color:rgba(24, 2, 2, 0.5);
+    color: white;
+    margin: 17px;
+    font-size:1.5rem;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.center{
+    text-align: center;
+}
