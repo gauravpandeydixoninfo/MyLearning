@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transform property</title>
+    <style>
+        *{
+            margin: 0px;
+            padding: 0px;
+        }
+        #iteam{
+            background-color: aquamarine;
+            display:flex;
+            justify-content: center;
+            align-items: center;
+            width: 244px;
+            height: 244px;
+
+
+
+        }
+        #iteam:hover{
+            transform: rotate(45deg);
+            transform: scale(2);
+            transform: translatex(40px);
+            transform: translatey(50px);
+            transform: translate(40px, 50px);
+
+
+        }
+        .container{
+            height: 80vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: brown;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="iteam">
+            This is an Iteam
+        </div>
+    </div>
+    
+</body>
+</html>

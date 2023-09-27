@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grid template area</title>
+    <style>
+        .container{
+            display:grid;
+            grid-template-areas: 
+            'navbar navbar  navbar'
+            'leftside  leftside rightside';
+            grid-gap: 1rem;
+
+        }
+        #navbar{
+            background-color: aqua;
+            grid-area: navbar;
+
+        }
+        #leftside{
+            background-color: bisque;
+            grid-area: leftside;
+
+        }
+        #rightside{
+            background-color: limegreen;
+
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="navbar">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam libero sed tempore. Saepe rem voluptate, eum veritatis aliquid esse neque temporibus quaerat inventore a minima distinctio provident! Fuga quia provident dolorum. Tempore inventore minima illo natus voluptatem, fuga corporis quo!
+        </div>
+        <div id="leftside">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex, tempore aspernatur ipsum alias quidem accusamus accusantium nihil quis sunt laboriosam, facilis corporis neque magni assumenda? Minima fugit, adipisci iusto nobis rerum, molestiae asperiores vitae nihil libero maiores cupiditate nam non earum amet accusantium sequi pariatur distinctio perferendis unde iste autem aliquid excepturi deleniti! Vel optio dolores id doloribus inventore, obcaecati aliquid delectus reiciendis consequatur tenetur aperiam, iure dolorum? Ducimus atque inventore temporibus, sint id dolorem illum fugit corporis, consequuntur repudiandae eum eveniet totam nemo adipisci libero dignissimos iste. Ipsum exercitationem ea voluptates voluptatum distinctio? Maiores culpa beatae facilis dolor obcaecati. Similique aperiam repudiandae a, tempora doloribus exercitationem, est odio amet unde doloremque perferendis rem temporibus, deserunt sapiente quisquam voluptates? Inventore culpa accusantium distinctio! Dolorem, amet qui porro eaque optio rerum reprehenderit quia voluptas eligendi nihil necessitatibus vero sint similique, inventore quis labore, quod explicabo quisquam accusantium delectus aut illo. Tempora quasi impedit tenetur unde atque quae et corrupti excepturi autem, similique nobis qui molestias ab quidem nihil cum fugit ad aliquid aspernatur possimus provident labore repellendus non. Tenetur mollitia quae velit ipsa. Asperiores, qui. Quasi consequuntur modi, veritatis porro fugit minus, magnam soluta cupiditate earum voluptate assumenda exercitationem et repellat!
+
+        </div>
+        <div id="rightside">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Omnis totam sed nam, dignissimos consequuntur pariatur dolorum fugiat et, exercitationem aperiam quam doloribus excepturi minima eum facilis necessitatibus numquam neque dicta ipsa blanditiis, esse voluptatum a error. Numquam assumenda modi eos totam est qui earum corporis adipisci eveniet consequatur quos unde reprehenderit quisquam natus placeat, non nihil nesciunt suscipit culpa dignissimos quia provident. Repudiandae non velit error quos perspiciatis illo, quo consequatur soluta blanditiis repellat sunt fugit magni dicta ipsa nesciunt dolorum expedita eaque, reprehenderit, labore minima tenetur iusto! Corporis voluptates necessitatibus amet doloribus sed et atque ipsum possimus eius voluptatem.
+
+        </div>
+    </div>
+    
+</body>
+</html>
