@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>set-interval and set timeout</title>
+</head>
+<body>
+    <span id="time"></span>
+    <script>
+        console.log("working perfect");
+        function runfunction(name, sirname){
+            console.log('run function is working '+ name+ " "+ sirname);
+            
+        }
+    //     timeout=setTimeout(runfunction, 5000, "gaurav", "pandey");
+    //     clearTimeout(timeout);
+    //    interval= setInterval(runfunction, 2000, "gaurav", "pandey");
+    //     clearInterval(interval);
+        setTimeout(displaydate, 1000)  //called only once after timeduration given
+        setInterval(displaydate,1000);  //called repetadely after the time duration we can give function argument also
+        function displaydate(){
+            time=new Date();
+            // console.log(time);
+            let check1=document.getElementById("time");
+            check1.innerHTML=time;
+        }
+    </script>
+    
+</body>
+</html>

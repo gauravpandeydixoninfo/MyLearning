@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1 id="head">This is heading</h1>
+    <p id="para">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Fugit tenetur eligendi magni numquam atque dolorem earum harum ullam, corrupti perspiciatis ipsum quod accusamus, culpa error a dicta eum corporis! Dignissimos repellat omnis perferendis recusandae suscipit ad maxime architecto. Beatae sequi praesentium exercitationem ducimus doloribus vero molestias dolores eveniet eaque laborum eum quidem tempore eius, rerum corrupti nihil asperiores neque veniam sed officiis nam reprehenderit. Accusamus vel doloremque libero architecto ducimus assumenda minus, dolore, reprehenderit earum, quam consequuntur. Rem officiis facilis, aliquid numquam totam possimus in sunt, ex consequatur laboriosam iusto expedita autem repellendus saepe placeat nam. Veritatis, aperiam magnam libero quaerat, mollitia sapiente aliquid, vero eius rem at sunt dolore est? Molestias fugit consequatur officiis, nisi aperiam hic provident culpa a vitae? Laudantium aperiam veniam quae sapiente recusandae expedita ad! Nisi quaerat exercitationem natus ex cupiditate autem provident! Necessitatibus nostrum doloribus quas sed autem delectus tenetur dolorem est hic, quod mollitia ratione voluptas iure. Reprehenderit accusantium labore hic officia maiores quae fugiat doloremque aliquid architecto inventore animi voluptas perferendis, enim obcaecati. Natus, laborum pariatur? Iusto voluptas obcaecati, saepe non repudiandae ab qui unde magnam error, impedit fugit blanditiis, deleniti aut quis perspiciatis corporis! Dolore ad suscipit laboriosam consequuntur pariatur excepturi earum minus soluta ipsum sunt illo et natus possimus eligendi ducimus esse deserunt, enim sit quibusdam tenetur nihil qui. Nobis reiciendis repudiandae perferendis ipsum possimus amet inventore deleniti laborum temporibus est quae vero voluptatem expedita eos quo nulla tempore odio dolores, fuga accusantium beatae obcaecati quisquam voluptas! Eum aspernatur minima atque dolorum sapiente molestias magnam quasi illo deserunt enim, dicta eaque, magni ad ex! Tenetur nulla quibusdam obcaecati natus, placeat hic eos libero numquam sint, temporibus ea nihil dolore est ex at, beatae recusandae voluptas suscipit dolores quaerat dolor voluptatem molestias tempora labore? Totam provident blanditiis nostrum est, ullam pariatur dolorem, beatae obcaecati minus necessitatibus amet voluptas, rem fuga esse. Nihil perspiciatis esse harum praesentium, incidunt amet cum magnam autem optio mollitia similique dolores aspernatur perferendis veniam facere excepturi dignissimos quidem minima! Porro recusandae ex voluptates facilis numquam ad libero nemo autem ipsam quia repellendus dolores eius exercitationem assumenda architecto pariatur quidem, nulla laborum? Corporis voluptas, maiores officiis fugiat autem facere eius similique impedit neque. Consectetur, illo? Blanditiis cumque consequuntur incidunt nostrum quo odit accusantium adipisci aut sint eius fuga praesentium explicabo, fugiat unde, maiores tempore veniam perspiciatis voluptates? Quas quasi ullam sunt laborum, distinctio voluptate rerum doloribus quos voluptatum.</p>
+    <button onClick="toggleword()">Click Me</button>
+    <script>
+        let para1=document.getElementById("para");
+        para1.addEventListener("mouseover", function run(){
+            // alert("mouse over");
+            console.log("mouse over");
+        })
+        para1.addEventListener("mouseout", function run(){
+            console.log("mouse out");
+        })
+        //     let head=document.getElementById('head');
+        //     console.log(head);
+        //     console.log(para);
+        function toggleword(){
+            let para=document.getElementById("para");
+            let head=document.getElementById('head');
+            console.log(head)
+            console.log(para);
+            if(para.style.display!="none")
+            {
+                para.style.display="none";
+            }
+            else{
+                para.style.display="block";
+            }
+        }
+    </script>
+</body>
+</html>
