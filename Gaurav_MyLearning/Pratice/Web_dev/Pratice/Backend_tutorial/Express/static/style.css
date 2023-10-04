@@ -1,0 +1,43 @@
+*{
+    margin:0px;
+    padding:0px;
+    background-image: url("https://source.unsplash.com/1600x900/?nature,water" );
+
+}
+
+
+h1{
+    /* background-color: yellow; */
+}
+ul{
+    display: flex;
+    flex-direction: row;
+    padding: 24px 55px;
+    text-decoration: none;
+}
+li{
+    list-style: none;
+    padding: 3px 17px;
+}
+
+nav{
+    /* background-color: aqua; */
+}
+
+a{
+    text-decoration: none;
+}
+
+.container{
+    /* background-color: yellow; */
+    text-align: center;
+}
+input, textarea{
+    display: block;
+    padding: 3px;
+    margin: 15px auto;
+    width: 60%;
+    outline: none;
+    border: 2px solid black;
+    border-radius: 5px;
+}
