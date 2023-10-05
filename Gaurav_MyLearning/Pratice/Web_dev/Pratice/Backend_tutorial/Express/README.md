@@ -1,5 +1,6 @@
 
-#commands to be executed
-$npm init
-$npm install -g express //flag g is not compulsary
-$npm install -g pug     //flag g is not compulsary
+1. Run `npm init` 
+
+2. Run `npm install pug`
+
+3. Run `npm install express`

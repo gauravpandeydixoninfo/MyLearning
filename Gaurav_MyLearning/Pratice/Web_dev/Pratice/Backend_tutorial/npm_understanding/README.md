@@ -1,6 +1,7 @@
-#Run the following command
+# Run the following command
 
-$npm init
-$npm install -g nodemon
-$npm install -g slugify
-$node ./index.js
+1. Run `npm init` 
+
+2. Run `npm install slugify`
+
+3. Run `npm install nodemon`
