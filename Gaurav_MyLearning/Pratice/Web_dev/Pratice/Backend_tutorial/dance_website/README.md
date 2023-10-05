@@ -1,5 +1,8 @@
-#command to be executed
+### Commnad to be executed
 
-$npm init
-$npm install pug
-$npm install express
+1. Run `npm init` 
+
+2. Run `npm install pug`
+
+3. Run `npm install express`
+
