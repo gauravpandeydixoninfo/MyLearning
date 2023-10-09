@@ -4,8 +4,9 @@ const fs=require("fs");
 const app=express();
 const bodyparser=require("body-parser");
 var mongoose=require("mongoose");
-mongoose.coonect('mongodb://localhost/contactDance', {useNewParser: true})
-var contactSchema = new moongoose.Schema({
+// mongoose.connect('mongodb://localhost/contactDance', {useNewParser: true})
+mongoose.connect('mongodb://localhost/contactDance')
+var contactSchema = new mongoose.Schema({
     name: String,
     phone: String,
     email: String,
@@ -15,7 +16,7 @@ var contactSchema = new moongoose.Schema({
 
 var Contact = mongoose.model('Contact', contactSchema);
 
-const port=3000;
+const port=3001;
 //express specific stuff
 app.use(express.urlencoded());
 app.use('/static', express.static('static')) //for serving static files
@@ -43,9 +44,9 @@ app.post('/contact',(req,res)=>{
         res.status(400).send("Iteam was not saved to the database");
     });
     })
-    const parms={};
-    res.status(200).render('contact.pug', parms);
-})
+    // const parms={};
+    // res.status(200).render('contact.pug', parms);
+
 
 app.listen(port,()=>{
     console.log(`the application is running on ${port}`);
