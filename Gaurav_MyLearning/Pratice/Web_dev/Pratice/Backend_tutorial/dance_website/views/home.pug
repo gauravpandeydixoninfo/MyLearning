@@ -1,9 +1,13 @@
-html
-  head
-    title Gaurav Dance Academy
+extends base.pug
+
+block scripts 
+  script(src="/static/index.js")
+
+block style 
     style 
-      include ../static/style.css
-  body
+      include ../static/style.css  
+
+block content 
     nav#navbar 
       ul 
           div#logo
@@ -48,8 +52,3 @@ html
             img(src="/static/img/sp1.jpg", alt="Sponser Image", class="spImage")
             img(src="/static/img/sp2.jpg", alt="Sponser Image", class="spImage")
           
-    footer#footer 
-        |  This is footer 
-
-    script 
-      include ../static/index.js
