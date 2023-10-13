@@ -1,0 +1,17 @@
+extends base.pug
+
+block scripts 
+  script(src='/static/class_info.js')
+        let str="gaurav Pandey";
+        document.getElementById("welcome-user").innerHTML = str;
+        
+block style 
+        style
+          include ../static/style.css 
+          include ../static/styleContact.css 
+          include ../static/class_info.css
+
+block content 
+      h1 No of Contacts
+      div(id="welcome-user") #{str}
+      
