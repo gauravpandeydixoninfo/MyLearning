@@ -1,31 +1,34 @@
 import React, {useState} from 'react';
 
-export default function About() {
-    const [myStyle, changeColor]=useState({
-        color:"Black",
-        backgroundColor:"white"
-    })
-    const[buttonContent, changeContent]=useState("Enable Dark Mode");
-    const toggleButton=()=>{
+export default function About(props) {
+    // const [myStyle, changeColor]=useState({
+    //    color:"Black",
+    //     backgroundColor:"white"
+    // })
+    let myStyle={
+        color:props.mode==="light"?"black":"white",
+        backgroundColor:props.mode==="light"?"white":"grey"}
+    // const[buttonContent, changeContent]=useState("Enable Dark Mode");
+    // const toggleButton=()=>{
         
-        if (myStyle.color==="white"){
-            changeColor({
-            color:"black",
-            backgroundColor:"white"
-            }
-            )
-            changeContent("Enable Dark Mode");
-        }
-        else{
-                changeColor({
-                color:"white",
-                backgroundColor:"black",
-                border: "2px solid white"
-                })
-                changeContent("Diable Dark mode");
+    //     if (myStyle.color==="white"){
+    //         changeColor({
+    //         color:"black",
+    //         backgroundColor:"white"
+    //         }
+    //         )
+    //         changeContent("Enable Dark Mode");
+    //     }
+    //     else{
+    //             changeColor({
+    //             color:"white",
+    //             backgroundColor:"black",
+    //             border: "2px solid white"
+    //             })
+    //             changeContent("Diable Dark mode");
 
-        }
-    }
+    //     }
+    // }
     // let mystyle={
     //     color:"white",
     //     backgroundColor:"black"
@@ -72,9 +75,9 @@ export default function About() {
                     </div>
                 </div>
             </div>
-            <div className="container my-2">
+            {/* <div className="container my-2">
                 <button type="button" onClick={toggleButton} class="btn btn-primary">{buttonContent}</button>
-            </div>
+            </div> */}
         </div>
     );
 }

@@ -4,7 +4,7 @@ import Navbar from './components/Navbar';
 import TextForm from './components/TextForm';
 import About from './components/About';
 import React, { useState } from 'react';
-// import { BrowserRouter as Router, Switch, Link, Route } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Link, Route } from "react-router-dom";
 
 
 function App() {
@@ -20,8 +20,16 @@ function App() {
       setAlert(null);
     }, 3000);
   }
-
-  const toggleMode = () => {
+  const removeBodyClasses=()=>{
+    document.body.classList.remove("bg-light");
+    document.body.classList.remove("bg-dark");
+    document.body.classList.remove("bg-danger");
+    document.body.classList.remove("bg-warning");
+    document.body.classList.remove("bg-success");
+  }
+  const toggleMode = (cls) => {
+    removeBodyClasses();
+    document.body.classList.add("bg-"+cls);
     if (mode === "dark") {
       console.log("dark mode");
       setMode("light")
@@ -45,20 +53,20 @@ function App() {
   }
   return (
     <>
-      {/* <Router> */}
+      <Router>
         <Navbar title="gauravutils" textAbout="AboutUtils" mode={mode} toggleMode={toggleMode} />
         <Alert alert={alert} />
-        {/* <div className="container"> */}
-          {/* <Switch>
+        <div className="container">
+          <Switch>
             <Route exact path="/about">
-              <About />
+              <About  mode={mode}/>
             </Route>
-            <Route exact path="/"> */}
+            <Route exact path="/">
               <TextForm heading="this is heading" mode={mode} showAlert={showAlert} />
-            {/* {/* </Route>
-          </Switch> */}
-        {/* </div> */}
-      {/* </Router>  */}
+             </Route>
+          </Switch>
+        </div>
+      </Router> 
     </>
   );
 }

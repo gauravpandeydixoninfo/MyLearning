@@ -40,7 +40,7 @@ export default function TextForm(props) {
         </div>
         <div className='container' style={{color: props.mode==='dark'?'white':'black'}}>
             <h1>Your text summary</h1>
-            <p>no of character={text.length} no of words={text.length===0?0:text.split(" ").length}</p>
+            <p>no of character={text.length} no of words={text.split(/\s/).filter((element)=>{return element.length!==0}).length}</p>
             <p>{0.008 * text.split("").length} Minutes read</p>
             <h2>Preview</h2>
             <p>{text.length>0?text:"Enter some text in textBox"}</p>
