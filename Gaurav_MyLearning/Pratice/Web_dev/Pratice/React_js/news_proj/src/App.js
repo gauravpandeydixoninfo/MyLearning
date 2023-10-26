@@ -5,7 +5,7 @@
 import React, { Component } from 'react';
 import News from './components/News.js';
 import NavBar from './components/NavBar.js';
-import { BrowserRouter as Router, Switch, Link, Route } from "react-router-dom";
+import { BrowserRouter as Router, Switch,  Route } from "react-router-dom";
 
 export default class App extends Component {
   
