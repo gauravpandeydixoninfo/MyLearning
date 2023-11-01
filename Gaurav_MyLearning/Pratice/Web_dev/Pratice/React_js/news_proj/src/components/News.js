@@ -135,7 +135,6 @@ export default class News extends Component {
         return (
             <div className='container my-3'>
                 <h2 className='text-center'> GauravNews - Top Headliens</h2>
-                {/* {this.state.loading&&<Spinner/>} */}
                 <InfiniteScroll
                   
                    dataLength={this.state.articles.length} //This is important field to render the next data
