@@ -46,4 +46,36 @@ async (req, res)=>{
 
 })
 
+//Authenticate a User using: POST "/api/auth/login" 
+
+router.post('/login',
+
+async (req, res)=>{
+   const {email, password}= req.body;
+   try{
+      let user= await User.findOne({email});
+      if(!user){
+         return res.status(404).json({error: "Please try to login with correct Credentials"});
+
+      }
+      const passwordCompare= await bcrypt.compare(password, user.password);
+      if(!passwordCompare){
+         return res.status(404).json({error: "Please try to login with correct Credentials"});
+      }
+      const data= {
+         user:{
+            id: user.id
+         }
+      }
+      const authToken=jwt.sign(data, JWT_SECRET);
+      res.json({authToken})
+   }catch(error) {
+      console.log("error occured");
+      return res.status(404).json({error: "eror occcure"})
+   }
+
+})
+
+
+
 module.exports= router
