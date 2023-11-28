@@ -1,11 +1,13 @@
 const express= require('express');
 const router= express.Router();
-const User= require('../models/User')
+const User= require('../models/User');
+const {body, validationResult} = require('express-validator');
 const bcrypt = require('bcryptjs');
 const  jwt = require('jsonwebtoken');
-const JWT_SECRET="gauravisagoodboy"
+const JWT_SECRET="gauravisagoodboy";
+const fetchuser = require("../middleware/fetchUser");
 
-//Create a User using: POST "/api/auth/createUser" . Doesn't require Auth
+//Route 1: Create a User using: POST "/api/auth/createUser" . Doesn't require Auth
 router.post('/createUser',
 
 async (req, res)=>{
@@ -46,7 +48,7 @@ async (req, res)=>{
 
 })
 
-//Authenticate a User using: POST "/api/auth/login" 
+//Route 2: Authenticate a User using: POST "/api/auth/login" 
 
 router.post('/login',
 
@@ -77,5 +79,23 @@ async (req, res)=>{
 })
 
 
+//Route 3: get loggedin User Details using : POST "/api/auth/getuser". login required
+// here fetchuser is a middleware
+router.post('/getuser',  
+fetchuser, 
+ async (req, res) => {
+
+try {
+   userId =req.user.id;
+   const user = await User.findById(userId).select("-password")
+   res.send(user);
+   
+   
+} catch (error) {
+   
+   console.error(error.message);
+   res.status(500).send("Internal server error");
+}
+})
 
 module.exports= router
