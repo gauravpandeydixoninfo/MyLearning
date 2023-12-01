@@ -9,7 +9,7 @@ const AddNote = () => {
 
     const handleClick = (e) => {
         e.preventDefault();
-        addNote(note);
+        addNote(note.title, note.description, note.tag);
     }
 
     const onChange= (e) => {
