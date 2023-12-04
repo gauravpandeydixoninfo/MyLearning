@@ -11,9 +11,10 @@ const fetchuser = require("../middleware/fetchUser");
 router.post('/createUser',
 
 async (req, res)=>{
-   let user = await User.findOne({email: req.body.email});
+   let success = false; 
+      let user = await User.findOne({email: req.body.email});
    if(user){
-      return res.status(404).json({error: "email alerady in user"})
+      return res.status(404).json({success, error: "email alerady in user"})
    }
     try{
 
@@ -40,7 +41,8 @@ async (req, res)=>{
    console.log(authToken);
    const pass=req.body.password;
    const temp=pass.length;
-   res.json({authToken});} catch(error){
+   success= true;
+   res.json({ success, authToken});} catch(error){
       console.log("error occured");
       return res.status(404).json({error: "eror occcure"})
 
@@ -53,6 +55,7 @@ async (req, res)=>{
 router.post('/login',
 
 async (req, res)=>{
+   let success= false;
    const {email, password}= req.body;
    try{
       let user= await User.findOne({email});
@@ -62,6 +65,7 @@ async (req, res)=>{
       }
       const passwordCompare= await bcrypt.compare(password, user.password);
       if(!passwordCompare){
+         success= false
          return res.status(404).json({error: "Please try to login with correct Credentials"});
       }
       const data= {
@@ -70,10 +74,11 @@ async (req, res)=>{
          }
       }
       const authToken=jwt.sign(data, JWT_SECRET);
-      res.json({authToken})
+      success=true;
+      res.json({success, authToken})
    }catch(error) {
       console.log("error occured");
-      return res.status(404).json({error: "eror occcure"})
+      return res.status(404).json({success, error: "eror occcure"})
    }
 
 })

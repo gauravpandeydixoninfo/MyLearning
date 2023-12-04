@@ -26,10 +26,11 @@ const Navbar = () => {
         <a className={`nav-link ${location.pathname==="/about"? "active":""}`} href="./about">About</a>
         </li>
       </ul>
-      <form className="d-flex" role="search">
-        <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
-        <button className="btn btn-outline-success" type="submit">Search</button>
-      </form>
+      <form className="d-flex">
+        <a className="btn btn-primary mx-1" href="/login" role="button">Login</a>
+        <a className="btn btn-primary mx-1" href="/signup" role="button">Signup</a>
+        </form>
+    
     </div>
   </div>
 </nav>
