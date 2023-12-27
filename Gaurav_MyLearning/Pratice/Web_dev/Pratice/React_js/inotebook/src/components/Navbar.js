@@ -1,11 +1,17 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useLocation } from "react-router-dom";
 import { useNavigate } from 'react-router-dom';
+// import Login from './Login';
+const Navbar = (props) => {
 
-const Navbar = () => {
+// const name2="";
+// setName1(name2);
+
+
   const navigate = useNavigate();
   const handleLogout= () =>{
     localStorage.removeItem('token');
+    localStorage.removeItem('myUser');
     navigate("/login");
   }
   let location = useLocation();
@@ -32,8 +38,10 @@ const Navbar = () => {
             {!localStorage.getItem('token')?<form className="d-flex">
               <a className="btn btn-primary mx-1" href="/login" role="button">Login</a>
               <a className="btn btn-primary mx-1" href="/signup" role="button">Signup</a>
-            </form>: <button onClick={handleLogout} className="btn btn-primary">Logout</button>}
-
+            </form>: <button onClick={handleLogout} className="btn btn-primary mx-2">Logout</button>
+            }
+             {localStorage.getItem('myUser')? <button  className="btn btn-primary"><i className="bi bi-person-check-fill mx-2"></i></button>: ""}
+            {/* {localStorage.getItem('myUser')? <button  className="btn btn-primary">{localStorage.getItem('myUser')}</button>: ""} */}
           </div>
         </div>
       </nav>

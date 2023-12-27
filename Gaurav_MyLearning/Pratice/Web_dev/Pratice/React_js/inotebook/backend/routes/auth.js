@@ -64,6 +64,7 @@ async (req, res)=>{
 
       }
       const passwordCompare= await bcrypt.compare(password, user.password);
+      const name1= user.name;
       if(!passwordCompare){
          success= false
          return res.status(404).json({error: "Please try to login with correct Credentials"});
@@ -75,7 +76,8 @@ async (req, res)=>{
       }
       const authToken=jwt.sign(data, JWT_SECRET);
       success=true;
-      res.json({success, authToken})
+      console.log("name1 in login ==>"+ name1);
+      res.json({success, authToken, name1})
    }catch(error) {
       console.log("error occured");
       return res.status(404).json({success, error: "eror occcure"})

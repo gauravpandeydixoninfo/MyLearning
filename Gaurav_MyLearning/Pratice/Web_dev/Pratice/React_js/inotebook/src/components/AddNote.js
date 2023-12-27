@@ -3,6 +3,7 @@ import noteContext from "../context/notes/noteContext";
 // import {useContext} from 'react';
 
 const AddNote = (props) => {
+    // console.log("**********AddNote called*****************", props)
     const context = useContext(noteContext);
     const { addNote } = context;
     const [note, setNote] = useState({title: "", description: "", tag: ""})
@@ -21,7 +22,6 @@ const AddNote = (props) => {
         <div>
             <h1>Add a Note</h1>
             <form className='my-3'>
-
                 <div className="mb-3">
                     <label htmlFor="title" className="form-label">Title</label>
                     <input type="text" className="form-control" id="title" name="title" aria-describedby="emailHelp" value={note.title} onChange={onChange} minLength={5} required/>
@@ -36,9 +36,6 @@ const AddNote = (props) => {
                 </div>
                 <button disabled={note.title.length<5 || note.description.length<5} type="submit" className="btn btn-primary" onClick={handleClick}>Add Note</button>
             </form>
-
-
-
         </div>
     );
 }

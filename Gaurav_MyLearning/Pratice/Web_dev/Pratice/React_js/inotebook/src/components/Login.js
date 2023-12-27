@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Navbar from './Navbar';
 // import createBrowserHistory from 'history/createBrowserHistory';
 
 
 // const hist = createBrowserHistory({forceRefresh:true});
 const Login = (props) => {
+  const [namee, setNamee] = useState("");
+  console.log("name2 inital value=" + namee);
   const [credentials, setCredentials] = useState({ email: "", password: "" })
   // const history = createBrowserHistory({forceRefresh:true});
   let navigate = useNavigate();
@@ -19,13 +22,19 @@ const Login = (props) => {
       body: JSON.stringify({ email: credentials.email, password: credentials.password })
     });
     const json = await response.json();
-    console.log(json);
+    // console.log(json);
     if (json.success) {
       //Save the auth token and redirect
       localStorage.setItem('token', json.authToken);
-      console.log("login with correct one token = " + json.authToken);
+      localStorage.setItem('myUser', json.name1);
+      // console.log("login with correct one token = " + json.authToken);
+      console.log("name of person by name1=" + json.name1)
+      setNamee(json.name1);
+      console.log("name2 value after setName2=" + namee);
+
       navigate("/");
-      props.showAlert("Account login Successfully", "success");
+
+      // props.showAlert("Account login Successfully", "success");
     }
     else {
       // alert("Invalid credentials");

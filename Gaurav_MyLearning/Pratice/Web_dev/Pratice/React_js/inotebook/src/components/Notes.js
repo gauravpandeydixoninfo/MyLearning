@@ -8,13 +8,14 @@ import AddNote from './AddNote';
 import { useNavigate } from 'react-router-dom';
 
 const Notes = (props) => {
+  // console.log("**********Notes called*****************", props)
   const context = useContext(noteContext);
   // let history= useHistory();
   // const history = createBrowserHistory({forceRefresh:true});
   // const history= require("history");
   const navigate = useNavigate();
   const { notes, getNotes, editNote } = context;
-  console.log("localStorage.token=>" + localStorage.getItem('token'))
+  // console.log("localStorage.token=>" + localStorage.getItem('token'))
   useEffect(() => {
     if (localStorage.getItem('token')) {
       console.log("token is not empty")
@@ -32,7 +33,7 @@ const Notes = (props) => {
   const [note, setNote] = useState({ id: "", etitle: "", edescription: "", etag: "" })
 
   const updateNote = (currentNote) => {
-    console.log("updateNote is clicking");
+    // console.log("updateNote is clicking");
     // console.log("ref==>" + ref.current);
 
     // ref.modal('toggle');
@@ -43,7 +44,7 @@ const Notes = (props) => {
   }
 
   const handleClick = (e) => {
-    console.log("updating the note...", note);
+    // console.log("updating the note...", note);
     editNote(note.id, note.etitle, note.edescription, note.etag);
     refClose.current.click();
     // addNote(note.title, note.description, note.tag);
@@ -83,7 +84,6 @@ const Notes = (props) => {
                   <label htmlFor="tag" className="form-label">Tag</label>
                   <input type="text" className="form-control" id="etag" name="etag" value={note.etag} onChange={onChange} minLength={5} required />
                 </div>
-
               </form>
             </div>
             <div className="modal-footer">
