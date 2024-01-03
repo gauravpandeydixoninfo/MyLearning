@@ -8,6 +8,7 @@ export default function Home() {
       <div>
       <h1> hellow</h1>
       <Link href="/productlist">Product List </Link>
+      <Link href="/productlistserver">Product List Server </Link>
       </div>
     </main>
   )
