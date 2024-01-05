@@ -9,6 +9,7 @@ export default function Home() {
       <h1> hellow</h1>
       <Link href="/productlist">Product List </Link>
       <Link href="/productlistserver">Product List Server </Link>
+      <h1 style={{fontFamily: "Roboto", fontWeight: "100"}}> font check</h1>
       </div>
     </main>
   )
