@@ -6,6 +6,6 @@ import React from "react";
 export default function Page(){
     console.log("loader runed");
     return(
-        <h1> Loading Details...</h1>
+        <h1> Loading Details... </h1>  
     )
 }

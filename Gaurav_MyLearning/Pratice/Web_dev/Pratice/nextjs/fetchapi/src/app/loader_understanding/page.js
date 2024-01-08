@@ -11,12 +11,12 @@ export default  async function Page(){
     return(
         <div>
             <h1>Loader Understanding</h1>
-            {
+            {/* {
                 data.map((iteam)=>
                 {
                 return    <h2>Name: {iteam.firstName}</h2>
                 })
-            }
+            } */}
         </div>
     )
 }

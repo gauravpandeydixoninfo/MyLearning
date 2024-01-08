@@ -53,7 +53,7 @@ export default async function Page() {
         <div>
             <h1 style={{backgroundColor: "blue"}}>Productttt List</h1>
             
-            {
+            {/* {
                 products.map((element)=>{
                    return <div><h3 >{element.title}</h3>
                    <Product price={element.price}/>
@@ -61,7 +61,7 @@ export default async function Page() {
                     </div>
                     
                 })
-                }
+                } */}
         </div>
     )
 
