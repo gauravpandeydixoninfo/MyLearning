@@ -1,7 +1,7 @@
 import DeleteProduct from "@/lib/DeleteProduct";
 import Link from "next/link";
 let getProducts= async ()=>{
-    let data = await fetch("http://localhost:3000/api/products", {cache:"no-cache"});
+    let data = await fetch("http://localhost:3000/api/products",{cache:"no-cache"});
     console.log("gaurav"+data);
     data = await data.json();
     // var data = JSON.stringify(data);
