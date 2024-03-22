@@ -7,7 +7,7 @@ const db= require('./db');
 
 // connectToMongo();
 
-db;
+// db;
 const app = express()
 app.use(express.json())
 
