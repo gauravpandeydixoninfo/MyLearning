@@ -5,18 +5,16 @@ import SignUp from "../app/components/signup";
 import Services from "../app/components/services";
 import Cards from "../app/components/cards";
 import About from "../app/components/about"
-import Packages from "../app/components/ourpackages";
+import Packages from "../app/components/fiter";
 
 import Navbar from '../app/components/navbar';
-import Mydata from './components/mydata';
 import Filter_data from './components/fiter';
 export default function Home() {
   return (
     <>
     <Navbar/>
     <About/>
-    <Packages/>
-    {/* <Mydata /> */}
+    {/* <Packages/> */}
     {/* <Cards/> */}
     <Filter_data/>
     {/* <Login/> */}

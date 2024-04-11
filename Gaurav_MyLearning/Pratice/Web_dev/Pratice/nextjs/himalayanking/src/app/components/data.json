@@ -1,0 +1,64 @@
+[{   
+    "data_number": "1",
+    "img": "https://source.unsplash.com/1600x900/?himachal",
+    "heading": "single person without accomodation",
+    "no_d": "1",
+    "avg": "2500",
+    "car_rent" : "0",
+    "no_person" : "1"
+},
+{
+    "data_number": "2",
+    "img": "https://source.unsplash.com/1600x900/?hillroad",
+    "heading": "single person with accomodation",
+    "no_d": "1",
+    "avg":"4500",
+    "car_rent":"2000",
+    "no_person" : "1"
+
+},
+{
+    "data_number": "3",
+    "img": "https://source.unsplash.com/1600x900/?waterfall",
+    "heading": "couple  without accomodation",
+    "no_d": "1",
+    "avg":"7500",
+    "car_rent":"3500" ,
+    "no_person" : "2"
+},
+{"data_number": "4",
+"img": "https://source.unsplash.com/1600x900/?hills",
+"heading": "famaily  with accomodation",
+"no_d": "1",
+"avg":"20000",
+"car_rent":"10000" ,
+"no_person" : "2"
+
+},
+{"data_number": "5",
+"img": "https://source.unsplash.com/1600x900/?uttarakhand",
+"heading": "family  without accomodation",
+"no_d": "1",
+"avg":"10000",
+"car_rent":"0" ,
+"no_person" : "4"
+
+},
+{"data_number": "6",
+"img": "https://source.unsplash.com/1600x900/?himalaya",
+"heading": "family  with no accomodation",
+"no_d": "1",
+"avg":"10000",
+"car_rent":"0" ,
+"no_person" : "4"
+
+},
+{"data_number": "6",
+"img": "https://source.unsplash.com/1600x900/?himalaya",
+"heading": "family  with no accomodation",
+"no_d": "1",
+"avg":"10000",
+"car_rent":"0",
+"no_person" : "4"
+
+}]

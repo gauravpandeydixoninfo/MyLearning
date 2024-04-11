@@ -4,21 +4,29 @@ import Bg3 from "../images/bg3.png"
 import Image from "next/image"
 import Bg4 from "../images/bg4.png"
 import Bg5 from "../images/bg5.png";
-export default function About() {
+export default function Package_details() {
     return (
         <div className="d-flex  ">
 
             <div>
-            <h1 className="mt-0" style={{background:"green", color:"white"}}>Welcome to Bageshwar: Your Gateway to Himalayan Adventure</h1>
-                <div className="d-flex  " >
-                    <Image src={Bg3} style={{width: "35%", height: "55%"}} className="p-2 bg-info flex-fill" alt="..." />
-                    <Image src={Bg4}  style={{width: "25%", height: "5%"}} className="p-2 bg-info flex-fill" alt="..." />
-                    <Image src={Bg5} style={{width: "25%", height: "5%"}} className="p-2 bg-info flex-fill" alt="..." />
+                <h1 className="mt-0" style={{ background: "green", color: "white" }}>Welcome to Bageshwar: Your Gateway to Himalayan Adventure</h1>
+                <div className="container mx-auto">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-4">
+                        <div className="aspect-w-4 aspect-h-3">
+                            <Image src={Bg3} className="object-cover w-full h-full" alt="Photo 1" />
+                        </div>
+                        <div className="aspect-w-4 aspect-h-3">
+                            <Image src={Bg4} className="object-cover w-full h-full" alt="Photo 2" />
+                        </div>
+                        <div className="aspect-w-4 aspect-h-3">
+                            <Image src={Bg5} className="object-cover w-full h-full" alt="Photo 3" />
+                        </div>
+                    </div>
                 </div>
-                
-                <h2 style={{background:"red", color:"white"}}>Explore the Untouched Beauty of Bageshwar, Uttarakhand </h2>
-                <p style={{background:"aqua"}}>Nestled in the lap of the majestic Himalayas, Bageshwar district in Uttarakhand beckons travelers with its serene landscapes, spiritual aura, and thrilling adventures. At [Your Company Name], we are dedicated to curating unforgettable experiences that allow you to immerse yourself in the natural wonders and cultural heritage of this enchanting region.</p>
-                <h1 style={{background:"grey", color:"orange"}}><center>Our Services:</center></h1>
+
+                <h2 style={{ background: "red", color: "white" }}>Explore the Untouched Beauty of Bageshwar, Uttarakhand </h2>
+                <p style={{ background: "aqua" }}>Nestled in the lap of the majestic Himalayas, Bageshwar district in Uttarakhand beckons travelers with its serene landscapes, spiritual aura, and thrilling adventures. At [Your Company Name], we are dedicated to curating unforgettable experiences that allow you to immerse yourself in the natural wonders and cultural heritage of this enchanting region.</p>
+                <h1 style={{ background: "grey", color: "orange" }}><center>Our Services:</center></h1>
                 <h2>Tour and Travel Packages</h2>
                 <p> Embark on a journey of discovery with our meticulously crafted tour packages. Whether you're a nature enthusiast, a spiritual seeker, or an adventure junkie, we have the perfect itinerary for you. Explore ancient temples, scenic trails, and hidden gems under the expert guidance of our knowledgeable local guides</p>
                 <h2>Hotel Accommodations</h2>

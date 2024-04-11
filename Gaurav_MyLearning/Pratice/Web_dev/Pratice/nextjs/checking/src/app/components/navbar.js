@@ -1,9 +1,8 @@
-// import hk from '../app/hk.jpg';
 "use client"
 import { useRouter } from 'next/navigation';
 
 import Image from 'next/image';
-import hk from '../images/hk.png'
+import hk from "@/app/components/images/hk.png";
 import Link from 'next/link';
 export default function Home() {
   const router= useRouter();
@@ -24,7 +23,7 @@ export default function Home() {
               Menu open: "hidden", Menu closed: "block"
             --> */}
               <svg className="block h-6 w-6" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" aria-hidden="true">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                <path strokeLinecap="round" strokeLinecap="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
               </svg>
               {/* <!--
               Icon when menu is open.
@@ -32,7 +31,7 @@ export default function Home() {
               Menu open: "block", Menu closed: "hidden"
             --> */}
               <svg className="hidden h-6 w-6" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" aria-hidden="true">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                <path strokeLinecap="round" strokeLinecap="round" d="M6 18L18 6M6 6l12 12" />
               </svg>
             </button>
           </div>
