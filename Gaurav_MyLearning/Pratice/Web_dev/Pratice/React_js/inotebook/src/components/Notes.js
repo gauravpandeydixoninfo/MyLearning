@@ -38,6 +38,7 @@ const Notes = (props) => {
 
     // ref.modal('toggle');
     // modal('toggle');
+    console.log("ref.current"+ ref.current);
     ref.current.click();
     setNote({ id: currentNote._id, etitle: currentNote.title, edescription: currentNote.description, etag: currentNote.tag })
 
@@ -46,6 +47,7 @@ const Notes = (props) => {
   const handleClick = (e) => {
     // console.log("updating the note...", note);
     editNote(note.id, note.etitle, note.edescription, note.etag);
+    
     refClose.current.click();
     // addNote(note.title, note.description, note.tag);
     props.showAlert("Updated successfully", "success");
