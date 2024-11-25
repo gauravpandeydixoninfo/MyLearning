@@ -1,0 +1,81 @@
+____  _                   _____         _                 _                                                             
+|  _ \(_)_  _____  _ __   |_   _|__  ___| |__  _ __   ___ | | ___   __ _ _   _                                          
+| | | | \ \/ / _ \| '_ \    | |/ _ \/ __| '_ \| '_ \ / _ \| |/ _ \ / _` | | | |                                         
+| |_| | |>  < (_) | | | |   | |  __/ (__| | | | | | | (_) | | (_) | (_| | |_| |                                         
+|____/|_/_/\_\___/|_| |_|   |_|\___|\___|_| |_|_| |_|\___/|_|\___/ \__, |\__, |                                         
+                                                                   |___/ |___/                                          
+                                   _____           __  __ _        _____         _                                      
+                                  |_   _| __ __ _ / _|/ _(_) ___  |_   _|__  ___| |_                                    
+                                    | || '__/ _` | |_| |_| |/ __|   | |/ _ \/ __| __|                                   
+                                    | || | | (_| |  _|  _| | (__    | |  __/\__ \ |_                                    
+                                    |_||_|  \__,_|_| |_| |_|\___|   |_|\___||___/\__|                                   
+                                                                                                                        
+                                   _         _                        _   _                                             
+                                  / \  _   _| |_ ___  _ __ ___   __ _| |_(_) ___  _ __                                  
+                                 / _ \| | | | __/ _ \| '_ ` _ \ / _` | __| |/ _ \| '_ \                                 
+                                / ___ \ |_| | || (_) | | | | | | (_| | |_| | (_) | | | |                                
+                               /_/   \_\__,_|\__\___/|_| |_| |_|\__,_|\__|_|\___/|_| |_|                                
+------------------------------------------------------------------------------------------------------------------------------
+Your Information:
+------------------------------------------------------------------------------------------------------------------------------
+SSID: Airtel_Zerotouch_2.4G_DXB_6_PP
+Password: Airtel@123
+Current Directory : C:\Users\DXN4318\iperf-3.17.1-win64
+Iperf3 Executable Path : C:\Users\DXN4318\iperf-3.17.1-win64\iperf3.exe
+Log File Path : C:\Users\DXN4318\iperf-3.17.1-win64\Logs\log_2024-11-12_10-28-04_Airtel_Zerotouch_2.4G_DXB_6_PP.txt
+------------------------------------------------------------------------------------------------------------------------------
+Refreshing network list...
+Rescanning networks...
+SSID 'Airtel_Zerotouch_2.4G_DXB_6_PP' not found in the scan result after refresh.
+Wi-Fi IPv4 Address: 192.168.223.100
+Your Session Took : 0 hrs, 0 mins, 3 secs
+iPerf3 server is not running.
+iPerf3 server started.
+
+Running iperf3 [iperf3.exe -c 192.168.223.100 -u -b 50M] for 10 seconds...
+iperf3 [iperf3.exe -c 192.168.223.100 -u -b 50M] output (10 seconds):
+Connecting to host 192.168.223.100, port 5201
+[  5] local 192.168.223.100 port 49992 connected to 192.168.223.100 port 5201
+[ ID] Interval           Transfer     Bitrate         Total Datagrams
+[  5]   0.00-1.01   sec  6.00 MBytes  49.7 Mbits/sec  97  
+[  5]   1.01-2.01   sec  5.93 MBytes  49.7 Mbits/sec  95  
+[  5]   2.01-3.01   sec  6.00 MBytes  50.3 Mbits/sec  95  
+[  5]   3.01-4.00   sec  5.87 MBytes  49.8 Mbits/sec  94  
+[  5]   4.00-5.01   sec  6.00 MBytes  50.0 Mbits/sec  97  
+[  5]   5.01-6.00   sec  5.93 MBytes  50.2 Mbits/sec  95  
+[  5]   6.00-7.01   sec  6.00 MBytes  49.8 Mbits/sec  95  
+[  5]   7.01-8.00   sec  5.87 MBytes  49.7 Mbits/sec  95  
+[  5]   8.00-9.01   sec  6.06 MBytes  50.5 Mbits/sec  97  
+[  5]   9.01-10.02  sec  6.00 MBytes  49.8 Mbits/sec  95  
+- - - - - - - - - - - - - - - - - - - - - - - - -
+[ ID] Interval           Transfer     Bitrate         Jitter    Lost/Total Datagrams
+[  5]   0.00-10.02  sec  59.7 MBytes  50.0 Mbits/sec  0.000 ms  0/955 (0%)  sender
+[  5]   0.00-10.02  sec  59.7 MBytes  50.0 Mbits/sec  0.114 ms  0/955 (0%)  receiver
+
+iperf Done.
+
+
+Running iperf3 [iperf3.exe -c 192.168.223.100 -u -b 80M] for 10 seconds...
+iperf3 [iperf3.exe -c 192.168.223.100 -u -b 80M] output (10 seconds):
+Connecting to host 192.168.223.100, port 5201
+[  5] local 192.168.223.100 port 65534 connected to 192.168.223.100 port 5201
+[ ID] Interval           Transfer     Bitrate         Total Datagrams
+[  5]   0.00-1.00   sec  9.49 MBytes  79.3 Mbits/sec  153  
+[  5]   1.00-2.01   sec  9.56 MBytes  79.5 Mbits/sec  153  
+[  5]   2.01-3.00   sec  9.49 MBytes  80.4 Mbits/sec  152  
+[  5]   3.00-4.01   sec  9.62 MBytes  80.0 Mbits/sec  154  
+[  5]   4.01-5.01   sec  9.43 MBytes  79.6 Mbits/sec  151  
+[  5]   5.01-6.01   sec  9.62 MBytes  80.3 Mbits/sec  154  
+[  5]   6.01-7.00   sec  9.49 MBytes  80.1 Mbits/sec  152  
+[  5]   7.00-8.01   sec  9.56 MBytes  79.7 Mbits/sec  153  
+[  5]   8.01-9.00   sec  9.49 MBytes  80.1 Mbits/sec  152  
+[  5]   9.00-10.01  sec  9.62 MBytes  79.9 Mbits/sec  153  
+- - - - - - - - - - - - - - - - - - - - - - - - -
+[ ID] Interval           Transfer     Bitrate         Jitter    Lost/Total Datagrams
+[  5]   0.00-10.01  sec  95.4 MBytes  79.9 Mbits/sec  0.000 ms  0/1527 (0%)  sender
+[  5]   0.00-10.02  sec  94.3 MBytes  78.9 Mbits/sec  0.052 ms  18/1527 (1.2%)  receiver
+
+iperf Done.
+
+Your iperf3 Execution Took : 0 hrs, 0 mins, 40 secs
+Your Script Took : 0 hrs, 0 mins, 44 secs

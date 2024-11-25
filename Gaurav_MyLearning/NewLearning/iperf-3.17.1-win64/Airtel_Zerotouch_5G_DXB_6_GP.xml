@@ -1,0 +1,26 @@
+
+            <WLANProfile xmlns="http://www.microsoft.com/networking/WLAN/profile/v1">
+                <name>Airtel_Zerotouch_5G_DXB_6_GP</name>
+                <SSIDConfig>
+                    <SSID>
+                        <name>Airtel_Zerotouch_5G_DXB_6_GP</name>
+                    </SSID>
+                </SSIDConfig>
+                <connectionType>ESS</connectionType>
+                <connectionMode>auto</connectionMode>
+                <MSM>
+                    <security>
+                        <authEncryption>
+                            <authentication>WPA2PSK</authentication>
+                            <encryption>AES</encryption>
+                            <useOneX>false</useOneX>
+                        </authEncryption>
+                        <sharedKey>
+                            <keyType>passPhrase</keyType>
+                            <protected>false</protected>
+                            <keyMaterial>Airtel@123</keyMaterial>
+                        </sharedKey>
+                    </security>
+                </MSM>
+            </WLANProfile>
+            
