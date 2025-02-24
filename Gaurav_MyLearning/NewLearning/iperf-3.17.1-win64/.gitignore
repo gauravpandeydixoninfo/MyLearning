@@ -1,0 +1,8 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+/Logs
+/venv
+log_2024-10-23_14-33-47_Airtel_Zerotouch_5G_ZX_6_GP.txt
+log_2024-11-12_10-28-04_Airtel_Zerotouch_2.4G_DXB_6_PP.txt
+# testing

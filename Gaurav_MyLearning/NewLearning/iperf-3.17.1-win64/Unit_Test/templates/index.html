@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Run Tests</title>
+</head>
+<body>
+    <h1>Select a Test to Run</h1>
+    <form action="/run-test" method="post">
+        <label for="test_case">Test Case:</label>
+        <select name="test_case" id="test_case">
+            {% for test_case in test_cases %}
+                <option value="{{ test_case }}">{{ test_case }}</option>
+            {% endfor %}
+        </select>
+        <button type="submit">Run Test</button>
+    </form>
+</body>
+</html>
