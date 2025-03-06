@@ -2,7 +2,7 @@ import asyncio
 from concurrent.futures import ThreadPoolExecutor
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel, Field
-from olt_telnet import connect_to_olt, telnet_sessions, close_telnet_session, check_telnet_status
+from olt_telnet import connect_to_olt, telnet_sessions, close_telnet_session, check_telnet_status, execute_telnet_commands_batch
 import time
 import re
 
@@ -25,10 +25,10 @@ class OLTCommand(BaseModel):
     command: str
 
 class PortConfigRequest(BaseModel):
-    olt_port: str
+    ip: str
+    uplink_port: str
     vlan_id: str
-    upstream_port: str
-    ip: str  # OLT IP address
+    pon_port: str
 
 @olt_router.post("/connect_telnet")
 async def connect(olt: OLTConnectionRequest):
@@ -87,74 +87,17 @@ async def execute_command(command: OLTCommand):
             status_code=500, detail=f"Command execution failed: {str(e)}"
         )
 
-def execute_telnet_commands_batch(ip: str, commands: list):
-    """Execute multiple commands on an active Telnet session step-by-step with pagination & <cr> handling."""
-    tn_data = telnet_sessions.get(ip)
-    if not tn_data:
-        raise HTTPException(status_code=400, detail=f"No active session for OLT {ip}. Please connect first.")
-
-    tn, _ = tn_data  # Retrieve session
-    try:
-        output = []
-        for cmd in commands:
-            tn.write(cmd.encode("ascii") + b"\n")
-            time.sleep(0.2)  # Small delay to allow OLT to process the command
-            
-            response = ""
-            while True:
-                chunk = tn.read_until(b">", timeout=2).decode("ascii")
-                response += chunk
-                
-                # Check for pagination (Press 'Q' or ---- More ----)
-                if "Press 'Q' to break" in chunk or "---- More ----" in chunk:
-                    tn.write(b" ")  # Send Space to get next page
-                    time.sleep(0.2)  # Allow time for more data
-                # Check for <cr> prompts (example: { <cr>|inner-vlan<K>|to<K> }:)
-                elif "{ <cr>" in chunk:
-                    tn.write(b"\n")  # Send Enter to continue execution
-                    time.sleep(0.2)
-                else:
-                    break  # Exit loop when full output is received
-
-            output.append(f"{cmd} → {response.strip()}")  # Store command and response
-        
-        # Refresh session timestamp
-        telnet_sessions[ip] = (tn, time.time())
-        
-        return "\n".join(output)  # Return all outputs as a formatted string
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Batch command execution failed: {str(e)}")
-
-def execute_telnet_commands_batch_Fast(ip: str, commands: list):
-    """Execute multiple commands on an active Telnet session as a batch."""
-    tn_data = telnet_sessions.get(ip)
-    if not tn_data:
-        raise HTTPException(status_code=400, detail=f"No active session for OLT {ip}. Please connect first.")
-    
-    tn, _ = tn_data  # Retrieve session
-    try:
-        full_command = "\n".join(commands) + "\n"
-        tn.write(full_command.encode("ascii"))
-        time.sleep(.5)  # Small delay to ensure execution
-        
-        response = tn.read_very_eager().decode("ascii")
-        telnet_sessions[ip] = (tn, time.time())  # Refresh session timestamp
-        
-        return response.strip()
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Batch command execution failed: {str(e)}")
-
 @olt_router.post("/configure_port_setting")
 async def configure_olt_port(config: PortConfigRequest):
     """
     Configures the OLT port with VLAN and upstream port settings.
     """
     try:
-        print(f"Backend Configuring OLT Port: {config.olt_port}, VLAN: {config.vlan_id}, Upstream: {config.upstream_port}, IP: {config.ip}")
+        print(f"Backend Configure IP: {config.ip}, Uplink Port: {config.uplink_port}, VLAN: {config.vlan_id}, PON Port: {config.pon_port}")
 
         # Construct Huawei CLI commands
-        olt_slot, olt_port = config.olt_port.rsplit("/", 1)
-        upstream_slot, upstream_port = config.upstream_port.rsplit("/", 1)
+        olt_slot, olt_port = config.pon_port.rsplit("/", 1)
+        upstream_slot, upstream_port = config.uplink_port.rsplit("/", 1)
         commands = [
             f"interface gpon {olt_slot}",
             f"port {olt_port} ont-auto-find enable",
@@ -186,14 +129,14 @@ async def display_port_status_details(config: PortConfigRequest):
     Display the OLT port with VLAN and upstream port settings.
     """
     try:
-        print(f"Backend Display OLT Port: {config.olt_port}, VLAN: {config.vlan_id}, Upstream: {config.upstream_port}")
+        print(f"Backend Display Details IP: {config.ip}, Uplink Port: {config.uplink_port}, VLAN: {config.vlan_id}, PON Port: {config.pon_port}")
 
         # Construct Huawei CLI commands
-        olt_slot, olt_port = config.olt_port.rsplit("/", 1)
-        upstream_slot, upstream_port = config.upstream_port.rsplit("/", 1)
+        olt_slot, olt_port = config.pon_port.rsplit("/", 1)
+        upstream_slot, upstream_port = config.uplink_port.rsplit("/", 1)
         commands = [
             f"display vlan {config.vlan_id}",
-            f"display port vlan {config.upstream_port}",
+            f"display port vlan {config.uplink_port}",
             f"display ont autofind all"
         ]
 
@@ -211,19 +154,42 @@ async def display_port_status_details(config: PortConfigRequest):
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"During port status | Reason: {str(e)}")
 
-def extract_vlan_info(output):
-    """Extract F/S/P, Native VLAN, and State from the given text."""
-    pattern = r"\s*(\d+ /\d+/\d+)\s+(\d+)\s+(\w+)"
-    
-    match = re.search(pattern, output)
-    if match:
-        olt_port, native_vlan, state = match.groups()
-        return {
-            "F/S/P": olt_port.strip(),
-            "Native VLAN": native_vlan.strip(),
-            "State": state.strip()
-        }
-    return None
+def extract_port_information(output, user_uplink_port, user_pon_port):
+    """
+    Extracts Native VLAN from 'Native VLAN:' key, State for the given Uplink Port,
+    and all ONT Serial Numbers for the given PON Port.
+    """
+
+    # Extract Native VLAN from "Native VLAN:" key
+    native_vlan_match = re.search(r"Native VLAN:\s*(\d+)", output)
+    native_vlan = native_vlan_match.group(1).strip() if native_vlan_match else "N/A"
+
+    # Extract State for the given Uplink Port
+    state_pattern = r"\s*(\d+ /\d+/\d+)\s+(\d+)\s+(\w+)"
+    state_match = re.search(state_pattern, output)
+    state = state_match.group(3).strip() if state_match else "N/A"
+
+    # Extract ONT Port and ONT Serial Number(s)
+    ont_pattern = r"F/S/P\s*:\s*(\d+/\d+/\d+).*?Ont SN\s*:\s*([\w\d]+)\s*\((.*?)\)"
+    ont_matches = re.findall(ont_pattern, output, re.DOTALL)
+
+    # Filter ONT Serial Numbers belonging to the specified PON Port
+    ont_sn_list = [
+        f"{ont_sn} ({ont_vendor})"
+        for pon_port, ont_sn, ont_vendor in ont_matches
+        if pon_port.strip() == user_pon_port.strip()
+    ]
+
+    # If no ONTs found, return default message
+    ont_sn_result = ", ".join(ont_sn_list) if ont_sn_list else "No ONT found"
+
+    return {
+        "Uplink Port": user_uplink_port,
+        "Native VLAN": native_vlan,
+        "State": state,
+        "PON Port": user_pon_port,
+        "ONT Serial Num": ont_sn_result
+    }
 
 @olt_router.post("/display_port_status_summary")
 async def display_port_status_summary(config: PortConfigRequest):
@@ -231,14 +197,14 @@ async def display_port_status_summary(config: PortConfigRequest):
     Display the OLT port with VLAN and upstream port settings.
     """
     try:
-        print(f"Backend Display OLT Port: {config.olt_port}, VLAN: {config.vlan_id}, Upstream: {config.upstream_port}")
+        print(f"Backend Display Summary IP: {config.ip}, Uplink Port: {config.uplink_port}, VLAN: {config.vlan_id}, PON Port: {config.pon_port}")
 
         # Construct Huawei CLI commands
-        olt_slot, olt_port = config.olt_port.rsplit("/", 1)
-        upstream_slot, upstream_port = config.upstream_port.rsplit("/", 1)
+        olt_slot, olt_port = config.pon_port.rsplit("/", 1)
+        upstream_slot, upstream_port = config.uplink_port.rsplit("/", 1)
         commands = [
             f"display vlan {config.vlan_id}",
-            f"display port vlan {config.upstream_port}",
+            f"display port vlan {config.uplink_port}",
             f"display ont autofind all"
         ]
 
@@ -250,17 +216,21 @@ async def display_port_status_summary(config: PortConfigRequest):
 
         print(f"Backend Executed Commands Output: {output}")
         # Extract information
-        vlan_info = extract_vlan_info(output)
-        print(f"Extracted VLAN Info: {vlan_info}")
+        port_info = extract_port_information(output, config.uplink_port, config.pon_port)
+        print(f"Extracted VLAN Info: {port_info}")
 
-        if vlan_info:
+        if port_info:
             output_string = "\n".join([
-                f"F/S/P: {vlan_info.get('F/S/P', 'N/A')}",
-                f"Native VLAN: {vlan_info.get('Native VLAN', 'N/A')}",
-                f"State: {vlan_info.get('State', 'N/A')}"
+                "------------------Uplink Info------------------\n"
+                f"Uplink Port: {port_info.get('Uplink Port', 'N/A')}",
+                f"Native VLAN: {port_info.get('Native VLAN', 'N/A')}",
+                f"State: {port_info.get('State', 'N/A')}",
+                "------------------OLT PON Info------------------\n"
+                f"PON Port: {port_info.get('PON Port', 'N/A')}",
+                f"ONT Serial Num: {port_info.get('ONT Serial Num', 'No ONT found')}"
             ])
         else:
-            output_string = "No VLAN information found."
+            output_string = "No Port information found."
         print(f"Output String:\n{output_string}")
         return {"message": "Displaying the port configurations as summary!", "output": output_string}
   
@@ -275,11 +245,11 @@ async def unconfig_olt_port(config: PortConfigRequest):
     UnConfigures the OLT port with VLAN and upstream port settings.
     """
     try:
-        print(f"Backend UnConfiguring OLT Port: {config.olt_port}, VLAN: {config.vlan_id}, Upstream: {config.upstream_port}")
+        print(f"Backend Delete IP: {config.ip}, Uplink Port: {config.uplink_port}, VLAN: {config.vlan_id}, PON Port: {config.pon_port}")
 
         # Construct Huawei CLI commands
-        olt_slot, olt_port = config.olt_port.rsplit("/", 1)
-        upstream_slot, upstream_port = config.upstream_port.rsplit("/", 1)
+        olt_slot, olt_port = config.pon_port.rsplit("/", 1)
+        upstream_slot, upstream_port = config.uplink_port.rsplit("/", 1)
         commands = [
             f"interface eth {upstream_slot}",
             f"native-vlan {upstream_port} vlan 1",
