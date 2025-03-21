@@ -1,6 +1,8 @@
 import telnetlib
 import threading
+import asyncio
 import time
+from fastapi import HTTPException
 
 # Telnet session management
 telnet_sessions = {}
@@ -31,17 +33,29 @@ def connect_to_olt(ip: str, username: str, password: str):
             return telnet_sessions[ip][0], "Reusing existing session!"
 
         tn = telnetlib.Telnet(ip, timeout=5)
+
+        # Step 1: Authenticate with Username
         tn.read_until(b"Username:", timeout=3)
         tn.write(username.encode("ascii") + b"\n")
 
+        # Step 2: Authenticate with Password
         tn.read_until(b"Password:", timeout=3)
         tn.write(password.encode("ascii") + b"\n")
 
+        # Step 3: Wait for initial login prompt (">")
         response = tn.read_until(b">", timeout=5).decode("ascii")
 
         if "invalid" in response.lower():
             tn.close()
             return None, f"Telnet connection failed for IP {ip} | Reason: Username or password invalid."
+
+        # Step 4: Enter enable mode
+        tn.write(b"enable\n")
+        tn.read_until(b"#", timeout=5)  # Wait for prompt to change to privileged mode
+
+        # Step 5: Enter configuration mode
+        tn.write(b"config\n")
+        tn.read_until(b"(config))#", timeout=5)  # Wait for prompt in config mode
 
         telnet_sessions[ip] = (tn, time.time())  # Store session with timestamp
         return tn, f"Connected to OLT {ip}"
@@ -51,7 +65,6 @@ def connect_to_olt(ip: str, username: str, password: str):
 
 def close_telnet_session(ip: str):
     """Close a Telnet session"""
-    print(f"Closing session for {ip}")
     tn_data = telnet_sessions.pop(ip, None)
     if tn_data:
         tn_data[0].close()
@@ -65,58 +78,98 @@ def check_telnet_status(ip: str):
     return {"status": "Inactive", "message": f"No active session found for"}
 
 def execute_telnet_commands_batch(ip: str, commands: list):
-    """Execute multiple commands on an active Telnet session step-by-step with pagination & <cr> handling."""
+    """Execute multiple commands on an active Telnet session step-by-step, ensuring prompt-based execution."""
     tn_data = telnet_sessions.get(ip)
     if not tn_data:
-        raise HTTPException(status_code=400, detail=f"No active session for OLT {ip}. Please connect first.")
+        return {
+            "status": "critical",
+            "message": f"No active session for OLT {ip}. Please connect first.",
+            "output": ""
+        }
 
     tn, _ = tn_data  # Retrieve session
     try:
         output = []
+        error_patterns = [
+            "% Parameter error",
+            "% Too many parameters",
+            "% Unknown command"
+        ]
+        expected_prompt = b")#"  # Huawei OLT prompt for command execution
+
         for cmd in commands:
             tn.write(cmd.encode("ascii") + b"\n")
-            time.sleep(0.2)  # Small delay to allow OLT to process the command
-            
+
             response = ""
             while True:
-                chunk = tn.read_until(b">", timeout=2).decode("ascii")
+                chunk = tn.read_until(expected_prompt, timeout=5).decode("ascii")
                 response += chunk
-                
-                # Check for pagination (Press 'Q' or ---- More)
-                if "Press 'Q' to break" in chunk or "---- More" in chunk:
+
+                # Handle pagination (Press 'Q' or ---- More ----)
+                if "Press 'Q' to break" in chunk or "---- More ----" in chunk:
                     tn.write(b" ")  # Send Space to get next page
-                    time.sleep(0.2)  # Allow time for more data
-                # Check for <cr> prompts (example: { <cr>|inner-vlan<K>|to<K> }:)
+                    time.sleep(0.2)
+
+                # Handle <cr> prompts (example: { <cr>|inner-vlan<K>|to<K> }:)
                 elif "{ <cr>" in chunk:
                     tn.write(b"\n")  # Send Enter to continue execution
                     time.sleep(0.2)
-                else:
-                    break  # Exit loop when full output is received
 
-            output.append(f"{cmd} → {response.strip()}")  # Store command and response
-        
+                # Stop if we reach the expected prompt (meaning command execution is complete)
+                elif ")#" in chunk:
+                    # print(f"Command executed: {cmd}")
+                    break # Exit loop when full output is received
+
+            # Store executed command and its response
+            output.append(f"{cmd} → {response.strip()}")
+
+            # Check for error patterns in the response
+            for error in error_patterns:
+                if error in response:
+                    return {
+                        "status": "error",
+                        "message": f"Command Execution Error: {error}",
+                        "output": "\n".join(output)
+                    }
+
         # Refresh session timestamp
         telnet_sessions[ip] = (tn, time.time())
-        
-        return "\n".join(output)  # Return all outputs as a formatted string
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Batch command execution failed: {str(e)}")
 
-def execute_telnet_commands_batch_Fast(ip: str, commands: list):
-    """Execute multiple commands on an active Telnet session as a batch."""
-    tn_data = telnet_sessions.get(ip)
-    if not tn_data:
-        raise HTTPException(status_code=400, detail=f"No active session for OLT {ip}. Please connect first.")
-    
-    tn, _ = tn_data  # Retrieve session
-    try:
-        full_command = "\n".join(commands) + "\n"
-        tn.write(full_command.encode("ascii"))
-        time.sleep(.5)  # Small delay to ensure execution
-        
-        response = tn.read_very_eager().decode("ascii")
-        telnet_sessions[ip] = (tn, time.time())  # Refresh session timestamp
-        
-        return response.strip()
+        return {
+            "status": "success",
+            "message": "All commands executed successfully",
+            "output": "\n".join(output)
+        }
+
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Batch command execution failed: {str(e)}")
+        return {
+            "status": "critical",
+            "message": f"Batch command execution failed: {str(e)}",
+            "output": "\n".join(output)
+        }
+
+async def handle_command_execution(ip: str, commands: list, success_message: str):
+    """Executes Telnet commands and handles errors with a provided success message."""
+    try:
+        response = await asyncio.get_running_loop().run_in_executor(None, execute_telnet_commands_batch, ip, commands)
+
+        # Handle different response scenarios
+        if response["status"] == "success":
+            return {"message": success_message, "output": response["output"]}
+        elif response["status"] == "error":
+            raise HTTPException(
+                status_code=400,
+                detail={"message": response["message"], "output": response["output"]}
+            )
+        elif response["status"] == "critical":
+            raise HTTPException(
+                status_code=500,
+                detail={"message": response["message"], "output": response["output"]}
+            )
+    except HTTPException as http_err:
+        raise http_err  # Re-raise HTTP errors
+    except Exception as e:
+        raise HTTPException(
+            status_code=500,
+            detail={"message": f"Unexpected error: {str(e)}", "output": ""}
+        )
